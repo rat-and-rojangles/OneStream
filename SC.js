@@ -15,7 +15,7 @@ $(document).ready(function () {
     $('#scWidget').on("load", function () {
         scWidget = SC.Widget('scWidget');
         scWidget.getDuration(function (a) { currentDuration = a; });
-    })
+    });
 
     slider = $('#slider');
     $('#pausePlay').on('click', function () { togglePlayback() })
