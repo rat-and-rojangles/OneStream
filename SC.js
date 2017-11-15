@@ -15,6 +15,9 @@ $(document).ready(function () {
     $('#scWidget').on("load", function () {
         scWidget = SC.Widget('scWidget');
         scWidget.getDuration(function (a) { currentDuration = a; });
+        scWidget.bind(SC.Widget.Events.PLAY_PROGRESS, function (e) {
+            console.log(Math.random());
+        });
     });
 
     slider = $('#slider');

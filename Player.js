@@ -1,8 +1,8 @@
 
 // todo: get YT widget (player)
 const Player = function () {
-    var scPlayer = new SCPlayer();
-    var ytPlayer = new YTPlayer();  // not yet defined
+    var scPlayer = new SCPlayer(enableControls);
+    var ytPlayer = new YTPlayer(enableControls);  // not yet defined
     var activePlayer;
 
     this.seekTo = function (ratio) {
@@ -13,7 +13,7 @@ const Player = function () {
         activePlayer.togglePlayback();
     }
 
-    
+
     //takes a JSON object (probably from the DB) and uses that to load up a song
     this.loadNewSong = function (songJSON) {
         exampleParameter = {
@@ -28,30 +28,37 @@ const Player = function () {
             }
         }
         var songNameVue;    //suppose this already exists
-        songNameVue.data = songJSON.meta.name;  // and so on
-
-        ytPlayer.disable();
-        scPlayer.disable();
+        songNameVue.data = songJSON.meta.name;  // change it to match the name of the new song
+        // and so on for all the metadata
 
         if (songJSON.fromYoutube) {
+            if (activePlayer == scPlayer) {
+                scPlayer.disable();
+            }
             activePlayer = ytPlayer;
         }
         else {
+            if (activePlayer == ytPlayer) {
+                ytPlayer.disable();
+            }
             activePlayer = scPlayer;
         }
+        disableUIWhileWaiting();
         activePlayer.loadNewSong(songJSON);
-
     }
 
     // Disables everything that has to wait for stuff to load
-    // Then reenables it when it's ready
-    const waitForLoad = function () {
-        // disable the button
+    const disableControlsWhileWaiting = function () {
+        // disable the buttons
+    }
+
+    const enableControls = function () {
+        // enable the buttons
     }
 }
 
-const SCPlayer = function () {
-    var scWidget;
+const SCPlayer = function (onSongLoadCallback) {
+    var scWidget;   // TODO: actually create the widget
     var ready = false;
     var startTime;
     var endTime;
@@ -68,13 +75,18 @@ const SCPlayer = function () {
         return ready;
     }
 
-    this.loadNewSong = function (songJSON) {
+    this.loadNewSong = async function (songJSON) {
         scWidget.load(songJSON.meta.url);   // you can include an options parameter, but docs don't explain that
         startTime = songJSON.meta.startTime;
         endTime = songJSON.meta.endTime;
+        // TODO:
+        // verify the song is valid
+        // verify the start/end times are correct
     }
 
     this.disable = function () {
         // ?
     }
+
+    const onFinishedLoadingSong = onSongLoadCallback;
 }
