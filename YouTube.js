@@ -75,14 +75,6 @@ window.onload = function () {
         }
     }
 
-    var ajax = new XMLHttpRequest();
-    ajax.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
-        }
-    };
-    ajax.open("GET", "https://www.w3schools.com/jquery/demo_test.txt", true);
-    ajax.send();
 }
 
 const togglePlayback = function () {
