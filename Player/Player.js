@@ -1,5 +1,11 @@
+// 1. window loads
+$(document).ready(function () {
+    // 2. create yt/sc wigdets
+    // 3. create yt/soundcloud players
+    // 4. create universal player
+});
 
-// todo: get YT widget (player)
+var player = new Player();
 const Player = function () {
     var scPlayer = new SCPlayer(enableControls);
     var ytPlayer = new YTPlayer(enableControls);  // not yet defined
@@ -43,50 +49,17 @@ const Player = function () {
             }
             activePlayer = scPlayer;
         }
-        disableUIWhileWaiting();
+        this.disableControls();
         activePlayer.loadNewSong(songJSON);
     }
 
     // Disables everything that has to wait for stuff to load
-    const disableControlsWhileWaiting = function () {
+    // NOTE: everything should start disabled on page load 
+    this.disableControls = function () {
         // disable the buttons
     }
 
-    const enableControls = function () {
+    this.enableControls = function () {
         // enable the buttons
     }
-}
-
-const SCPlayer = function (onSongLoadCallback) {
-    var scWidget;   // TODO: actually create the widget
-    var ready = false;
-    var startTime;
-    var endTime;
-
-    this.togglePlayback = function () {
-        scWidget.toggle();
-    }
-
-    this.seekTo = function (ratio) {
-        scWidget.seekTo(ratio * (endTime - startTime) + startTime);
-    }
-
-    this.isReady = function () {
-        return ready;
-    }
-
-    this.loadNewSong = async function (songJSON) {
-        scWidget.load(songJSON.meta.url);   // you can include an options parameter, but docs don't explain that
-        startTime = songJSON.meta.startTime;
-        endTime = songJSON.meta.endTime;
-        // TODO:
-        // verify the song is valid
-        // verify the start/end times are correct
-    }
-
-    this.disable = function () {
-        // ?
-    }
-
-    const onFinishedLoadingSong = onSongLoadCallback;
 }
