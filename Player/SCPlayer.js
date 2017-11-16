@@ -1,6 +1,5 @@
-// constructor parameter: a callback for when a new song is finished loading
 const SCPlayer = function () {
-    var scWidget;   // TODO: actually create the widget
+    var scWidget;
     var currentDuration;
     var startTime;
     var endTime;

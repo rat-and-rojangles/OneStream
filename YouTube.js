@@ -4,6 +4,8 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementById('ytAsync');
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+//<script src="https://www.youtube.com/iframe_api"></script>
+
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
@@ -28,7 +30,7 @@ function onYouTubeIframeAPIReady() {
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-    // console.log(JSON.stringify(event.target));
+    alert(JSON.stringify(event.target));
     event.target.playVideo();
 }
 

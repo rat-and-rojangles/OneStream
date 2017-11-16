@@ -7,9 +7,13 @@ $(document).ready(function () {
 
 var player = new Player();
 const Player = function () {
-    var scPlayer = new SCPlayer(enableControls);
-    var ytPlayer = new YTPlayer(enableControls);  // not yet defined
+    var scPlayer = new SCPlayer();
+    var ytPlayer = new YTPlayer();  // not yet defined
     var activePlayer;
+
+    this.initializeYouTubeWidget = function () {
+        // TODO: reject calls to this if it is already initialized
+    }
 
     this.seekTo = function (ratio) {
         activePlayer.seekTo(ratio);
@@ -18,7 +22,6 @@ const Player = function () {
     this.togglePlayback = function () {
         activePlayer.togglePlayback();
     }
-
 
     //takes a JSON object (probably from the DB) and uses that to load up a song
     this.loadNewSong = function (songJSON) {
@@ -56,10 +59,10 @@ const Player = function () {
     // Disables everything that has to wait for stuff to load
     // NOTE: everything should start disabled on page load 
     this.disableControls = function () {
-        // disable the buttons
+        // disable buttons, sliders, and key inputs
     }
 
     this.enableControls = function () {
-        // enable the buttons
+        // enable buttons, sliders, and key inputs
     }
 }
