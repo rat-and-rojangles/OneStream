@@ -25,25 +25,28 @@ function onYouTubeIframeAPIReady() {
         }
     });
     ytReady = true;
-    initialize();
 }
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-    alert(JSON.stringify(event.target));
-    event.target.playVideo();
+    // alert(JSON.stringify(event.target));
+    // event.target.playVideo();
 }
 
 // 5. The API calls this function when the player's state changes.
 //    The function indicates that when playing a video (state=1),
 //    the player should play for six seconds and then stop.
-var done = false;
+var awaitingLoad = false;
 function onPlayerStateChange(event) {
-    // console.log(JSON.stringify(event));
-    // if (event.data == YT.PlayerState.PLAYING && !done) {
-    //     setTimeout(stopVideo, 6000);
-    //     done = true;
-    // }
+    // event.target is the widget(player)
+    // event.data is the status code
+    if (event.data == YT.PlayerState.CUED) {
+        awaitingLoad = true;
+    }
+    else if (awaitingLoad && event.data == YT.PlayerState.PLAYING) {
+        awaitingLoad = false;
+        alert(player.getDuration());
+    }
 }
 function stopVideo() {
     player.stopVideo();
@@ -75,6 +78,9 @@ window.onload = function () {
         else if (event.keyCode == 77) {
             toggleMute();
         }
+        else if (event.keyCode == 76) {
+            loadNextVideo();
+        }
     }
 
 }
@@ -84,7 +90,7 @@ const togglePlayback = function () {
         player.pauseVideo();
     }
     else {
-        player.playVideo()
+        player.playVideo();
     }
 }
 
@@ -95,4 +101,12 @@ const toggleMute = function () {
     else {
         player.mute();
     }
+}
+
+var currentVideoIndex = 0;
+const videoIds = ['NEAgLibSoXQ', '8FOrfPpnhFI', 'UYswS8xiBS4']
+const loadNextVideo = function () {
+    currentVideoIndex = (currentVideoIndex + 1) % videoIds.length;
+    player.cueVideoById(videoIds[currentVideoIndex], 0, 'large');
+    player.playVideo();
 }

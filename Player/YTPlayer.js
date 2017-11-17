@@ -1,15 +1,9 @@
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
-function onYouTubeIframeAPIReady() {
+var onYouTubeIframeAPIReady = function () {
     player.initializeYouTubeWidget();
 }
 
-// 4. The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-    // NOTE: I don't know if this is just the initial creation of the iframe,
-    //       or if this fires every time a new video finished loading
-    event.target.playVideo();
-}
 
 const YTPlayer = function () {
     var ytWidget;
@@ -30,7 +24,7 @@ const YTPlayer = function () {
                 width: '640',
                 videoId: 'VideoIDGoesHere',
                 events: {
-                    'onReady': onPlayerReady,
+                    'onReady': function () { player.initializeIfReady(); },
                     'onStateChange': onPlayerStateChange
                 },
                 playerVars: {
@@ -43,6 +37,21 @@ const YTPlayer = function () {
         }
         else {
             console.error("YouTube widget is already initialized.");
+        }
+    }
+
+    var awaitingLoad = false;
+    var onPlayerStateChange = function (event) {
+        if (event.data == YT.PlayerState.CUED) {
+            awaitingLoad = true;
+        }
+        else if (awaitingLoad && event.data == YT.PlayerState.PLAYING) {
+            awaitingLoad = false;
+            currentDuration = player.getDuration();
+            player.enableControls();
+        }
+        else if (event.data == YT.PlayerState.ENDED) {
+            player.onYTSongEnd();
         }
     }
 
@@ -70,7 +79,8 @@ const YTPlayer = function () {
             'endSeconds': endTime,
             'suggestedQuality': 'large'     // maybe
         }
-        ytWidget.loadVideoById(videoParams);
+        ytWidget.cueVideoById(videoParams);
+        ytWidget.playVideo();
     }
 
     this.disable = function () {

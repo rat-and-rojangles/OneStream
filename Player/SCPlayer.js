@@ -4,6 +4,7 @@ const SCPlayer = function () {
     var startTime;
     var endTime;
 
+    var ready = false;
     // dumping this into a function for clarity
     const createWidget = function () {
         // deliberately loads an invalid track at first
@@ -11,15 +12,20 @@ const SCPlayer = function () {
         scWidgetElement.ready(function () {
             scWidget = SC.Widget('scWidget');
             scWidget.bind(SC.Widget.Events.READY, function () {
+                if (!ready) {
+                    ready = true;
+                    player.initializeIfReady();
+                }
                 // TODO: verify validity of song
                 scWidget.getDuration(function (d) {
-                    alert("SC READY");
                     currentDuration = d;
                     startTime = startTime.clampedLower(0);
                     endTime = endTime.clampedUpper(currentDuration);
-                    player.enableControls();    // maybe
+                    scWidget.play();
+                    player.enableControls();
                 });
             });
+            scWidget.bind(SC.Widget.Events.FINISH, player.onSCSongEnd);
         });
     }
     createWidget();

@@ -1,32 +1,49 @@
-// 1. window loads
 $(document).ready(function () {
-    // 2. create yt/sc wigdets
-    // 3. create yt/soundcloud players
-    // 4. create universal player
+    player = new Player();
+    $('*').off('keypress keydown keyup');
+    $(document).on('keypress', function (e) {
+        if (e.which == 32) {
+            player.togglePlayback();
+        }
+        // else if(e.which == )
+    });
 });
 
-var player = new Player();
+var player;
 const Player = function () {
     var scPlayer = new SCPlayer();
     var ytPlayer = new YTPlayer();  // not yet defined
     var activePlayer;
 
+    var enabled = false;
+    var ready = false;
+
     this.initializeYouTubeWidget = function () {
         // TODO: reject calls to this if it is already initialized
+        ytPlayer.initializeWidget();
     }
 
     this.seekTo = function (ratio) {
-        activePlayer.seekTo(ratio);
+        if (enabled) {
+            activePlayer.seekTo(ratio);
+        }
     }
 
     this.togglePlayback = function () {
-        activePlayer.togglePlayback();
+        if (enabled) {
+            activePlayer.togglePlayback();
+        }
     }
 
     //takes a JSON object (probably from the DB) and uses that to load up a song
     this.loadNewSong = function (songJSON) {
+        if (!ready && playersReady == 2) {
+            this.enableControls();
+            ready = true;
+        }
+
         exampleParameter = {
-            fromYoutube: false,
+            fromYoutube: false, //true if from YT, false if from SC
             url: "soundcloud_or_youtube_URL",
             meta: {
                 name: "Song Name",
@@ -56,13 +73,29 @@ const Player = function () {
         activePlayer.loadNewSong(songJSON);
     }
 
+    var playersReady = 0;
+    // Initializes the player after both YT and SC are ready
+    this.initializeIfReady = function () {
+        playersReady++;
+        if (playersReady == 2) {
+            // allow a song to be loaded
+        }
+    }
+
     // Disables everything that has to wait for stuff to load
     // NOTE: everything should start disabled on page load 
     this.disableControls = function () {
-        // disable buttons, sliders, and key inputs
+        enabled = false;
     }
 
     this.enableControls = function () {
-        // enable buttons, sliders, and key inputs
+        enabled = true;
+    }
+
+    this.onYTSongEnd = function () {
+        this.disableControls();
+    }
+    this.onSCSongEnd = function () {
+        this.disableControls();
     }
 }
