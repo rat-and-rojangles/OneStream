@@ -1,8 +1,9 @@
 // 2. This code loads the IFrame Player API code asynchronously.
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementById('ytAsync');
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// var firstScriptTag = document.getElementById('ytAsync');
+// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+document.body.appendChild(tag);
 
 //<script src="https://www.youtube.com/iframe_api"></script>
 
@@ -24,7 +25,6 @@ function onYouTubeIframeAPIReady() {
             start: 0
         }
     });
-    ytReady = true;
 }
 
 // 4. The API will call this function when the video player is ready.
@@ -85,7 +85,7 @@ window.onload = function () {
 
 }
 
-const togglePlayback = function () {
+var togglePlayback = function () {
     if (player.getPlayerState() == YT.PlayerState.PLAYING) {
         player.pauseVideo();
     }
@@ -94,7 +94,7 @@ const togglePlayback = function () {
     }
 }
 
-const toggleMute = function () {
+var toggleMute = function () {
     if (player.isMuted()) {
         player.unMute();
     }
@@ -104,8 +104,8 @@ const toggleMute = function () {
 }
 
 var currentVideoIndex = 0;
-const videoIds = ['NEAgLibSoXQ', '8FOrfPpnhFI', 'UYswS8xiBS4']
-const loadNextVideo = function () {
+var videoIds = ['NEAgLibSoXQ', '8FOrfPpnhFI', 'UYswS8xiBS4']
+var loadNextVideo = function () {
     currentVideoIndex = (currentVideoIndex + 1) % videoIds.length;
     player.cueVideoById(videoIds[currentVideoIndex], 0, 'large');
     player.playVideo();

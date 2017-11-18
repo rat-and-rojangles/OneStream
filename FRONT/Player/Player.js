@@ -1,3 +1,21 @@
+var loadSong = function (link) {
+    var data = {};
+    if (link.includes("soundcloud.com")) {
+        data.url = link;
+        data.fromYoutube = false;
+    }
+    else {
+        data.url = stripLinkForYouTubeID(link);
+        data.fromYoutube = true;
+    }
+    data.meta = {};
+    data.meta.startTime = 0;
+    data.meta.endTime = 9999999;
+    player.loadNewSong(data);
+}
+
+var slider;
+var songLinkField;
 $(document).ready(function () {
     player = new Player();
     $('*').off('keypress keydown keyup');
@@ -7,10 +25,18 @@ $(document).ready(function () {
         }
         // else if(e.which == )
     });
+    slider = $('#slider');
+    slider.on('change', function () {
+        player.seekTo(parseFloat(slider.val()));
+    });
+    $('#pausePlay').on('click', player.togglePlayback);
+    songLinkField = $('#songLink');
+    $('#loadSongButton').on('click', function () {
+        loadSong(songLinkField.val());
+    });
 });
 
-var player;
-const Player = function () {
+var Player = function () {
     var scPlayer = new SCPlayer();
     var ytPlayer = new YTPlayer();  // not yet defined
     var activePlayer;
@@ -53,8 +79,8 @@ const Player = function () {
                 endTime: 10000
             }
         }
-        var songNameVue;    //suppose this already exists
-        songNameVue.data = songJSON.meta.name;  // change it to match the name of the new song
+        // var songNameVue;    //suppose this already exists
+        // songNameVue.data = songJSON.meta.name;  // change it to match the name of the new song
         // and so on for all the metadata
 
         if (songJSON.fromYoutube) {
@@ -86,10 +112,12 @@ const Player = function () {
     // NOTE: everything should start disabled on page load 
     this.disableControls = function () {
         enabled = false;
+        clearInterval(fireContinuouslyWhilePlaying);
     }
 
     this.enableControls = function () {
         enabled = true;
+        setInterval(fireContinuouslyWhilePlaying, 1);
     }
 
     this.onYTSongEnd = function () {
@@ -97,5 +125,11 @@ const Player = function () {
     }
     this.onSCSongEnd = function () {
         this.disableControls();
+    }
+
+    var fireContinuouslyWhilePlaying = function () {
+        if (enabled && activePlayer.isPlaying()) {
+            slider.val(activePlayer.getRatio());
+        }
     }
 }

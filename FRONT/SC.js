@@ -27,10 +27,10 @@ $(document).ready(function () {
     });
 });
 
-const togglePlayback = function () {
+var togglePlayback = function () {
     scWidget.toggle();
 }
 
-const seekRatio = function (ratio) {
+var seekRatio = function (ratio) {
     scWidget.seekTo(ratio * currentDuration);
 }

@@ -5,26 +5,26 @@ var onYouTubeIframeAPIReady = function () {
 }
 
 
-const YTPlayer = function () {
+var YTPlayer = function () {
     var ytWidget;
-    var currentDuration;
     var startTime;
     var endTime;
 
     // dumping this into a function for clarity
-    const createWidget = function () {
+    var createWidget = function () {
         var ytAPI_Element = $('<script src="https://www.youtube.com/iframe_api"></script>');
+        $('body').append(ytAPI_Element);
     }
     createWidget();
 
     this.initializeWidget = function () {
         if (!ytWidget) {
-            ytWidget = new YT.Player('player', {
+            ytWidget = new YT.Player('ytPlayer', {
                 height: '390',
                 width: '640',
                 videoId: 'VideoIDGoesHere',
                 events: {
-                    'onReady': function () { player.initializeIfReady(); },
+                    'onReady': player.initializeIfReady,
                     'onStateChange': onPlayerStateChange
                 },
                 playerVars: {
@@ -33,7 +33,6 @@ const YTPlayer = function () {
                     start: 0
                 }
             });
-            // TODO: alert the player that i am ready
         }
         else {
             console.error("YouTube widget is already initialized.");
@@ -47,12 +46,18 @@ const YTPlayer = function () {
         }
         else if (awaitingLoad && event.data == YT.PlayerState.PLAYING) {
             awaitingLoad = false;
-            currentDuration = player.getDuration();
+            startTime = startTime.clampedLower(0);
+            alert(ytWidget.getPlaybackRate());
+            endTime = endTime.clampedUpper(ytWidget.getDuration());
             player.enableControls();
         }
         else if (event.data == YT.PlayerState.ENDED) {
             player.onYTSongEnd();
         }
+    }
+
+    this.isPlaying = function () {
+        return ytWidget.getPlayerState() == YT.PlayerState.PLAYING;
     }
 
     this.togglePlayback = function () {
@@ -65,7 +70,11 @@ const YTPlayer = function () {
     }
 
     this.seekTo = function (ratio) {
-        scWidget.seekTo(ratio * (endTime - startTime) + startTime);
+        var alertThis = "wanted: " + (ratio * (endTime - startTime) + startTime) + "\nduration: " + ytWidget.getDuration();
+        alertThis += "\nend: " + endTime;
+        alertThis += "\nstart: " + startTime;
+        alert(alertThis);
+        ytWidget.seekTo(ratio * (endTime - startTime) + startTime, true);
     }
 
     this.loadNewSong = function (songJSON) {
@@ -74,9 +83,9 @@ const YTPlayer = function () {
         startTime = songJSON.meta.startTime;
         endTime = songJSON.meta.endTime;
         var videoParams = {
-            'videoId': songJSON.meta.url,
-            'startSeconds': startTime,
-            'endSeconds': endTime,
+            'videoId': songJSON.url,
+            // 'startSeconds': startTime,
+            // 'endSeconds': endTime,
             'suggestedQuality': 'large'     // maybe
         }
         ytWidget.cueVideoById(videoParams);
@@ -85,5 +94,9 @@ const YTPlayer = function () {
 
     this.disable = function () {
         ytWidget.pauseVideo();
+    }
+
+    this.getRatio = function () {
+        return ytWidget.getCurrentTime() / ytWidget.getDuration();
     }
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <title>Player demo</title>
+        <meta name="author" content="ratmaster Fischer">
+        <link rel="stylesheet" href="HideWidgets.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://w.soundcloud.com/player/api.js"></script>
+        <script src="Utility.js"></script>
+        <script src="Player/SCPlayer.js"></script>
+        <script src="Player/YTPlayer.js"></script>
+        <script src="Player/Player.js"></script>
+    </head>
+
+    <body>
+        <div id="ytPlayer" class="widget"></div>
+        <input id="slider" type="range" min="0" max="1" value="0" step="0.00001" id="myRange">
+        <button id="pausePlay">pause/play</button>
+        <input type="text" id="songLink" value="">
+        <button id="loadSongButton">load song</button>
+    </body>
+
+</html>
