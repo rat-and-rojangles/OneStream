@@ -21,34 +21,37 @@ var YTPlayer = function () {
         player.enableControls();
         startTime = startTime.clampedLower(0);
         endTime = endTime.clampedUpper(ytWidget.getDuration());
-        alert("ready");
     }
 
-    var regeneratePlayer = function (id, start, end) {
-        startTime = start;
-        endTime = end;
-        alert('regenerating');
-        $('#ytPlayer').remove();
-        $('body').append($('<div id="ytPlayer" class="widget"></div>'));
-        ytWidget = new YT.Player('ytPlayer', {
-            height: '390',
-            width: '640',
-            videoId: id,
-            events: {
-                'onReady': onReady,
-                'onStateChange': onPlayerStateChange
-            },
-            playerVars: {
-                color: "white",
-                controls: 0,
-                disablekb: 1,
-                enablejsapi: 1,
-                autoplay: 1,
-                start: startTime,
-                end: endTime
-            }
-        });
+    var onError = function (e) {
+        alert('invalid link');
     }
+
+    // var regeneratePlayer = function (id, start, end) {
+    //     startTime = start;
+    //     endTime = end;
+    //     $('#ytPlayer').remove();
+    //     $('body').append($('<div id="ytPlayer" class="widget"></div>'));
+    //     ytWidget = new YT.Player('ytPlayer', {
+    //         height: '390',
+    //         width: '640',
+    //         videoId: id,
+    //         events: {
+    //             'onReady': onReady,
+    //             'onStateChange': onPlayerStateChange,
+    //             'onError': onError
+    //         },
+    //         playerVars: {
+    //             color: "white",
+    //             controls: 0,
+    //             disablekb: 1,
+    //             enablejsapi: 1,
+    //             autoplay: 1,
+    //             start: startTime,
+    //             end: endTime
+    //         }
+    //     });
+    // }
 
     this.initializeWidget = function () {
         if (!ytWidget) {
@@ -58,12 +61,15 @@ var YTPlayer = function () {
                 videoId: 'VideoIDGoesHere',
                 events: {
                     'onReady': player.initializeIfReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onError
                 },
                 playerVars: {
                     color: "white",
                     controls: 0,
-                    start: 0
+                    start: 0,
+                    disablekb: 1,
+                    autoplay: 1
                 }
             });
         }
@@ -72,9 +78,18 @@ var YTPlayer = function () {
         }
     }
 
+    var awaitingInitialPlay = true;
     var onPlayerStateChange = function (event) {
+        if (awaitingInitialPlay && ytWidget.getDuration() > 0) {
+            awaitingInitialPlay = false;
+            player.enableControls();
+            startTime = startTime.clampedLower(0);
+            endTime = endTime.clampedUpper(ytWidget.getDuration());
+            ytWidget.seekTo(startTime);
+            ytWidget.playVideo();
+        }
         if (event.data == YT.PlayerState.ENDED) {
-            player.onYTSongEnd();
+            player.onSongEnd();
         }
     }
 
@@ -92,22 +107,26 @@ var YTPlayer = function () {
     }
 
     this.seekTo = function (ratio) {
-        var alertThis = "wanted: " + (ratio * (endTime - startTime) + startTime) + "\nduration: " + ytWidget.getDuration();
-        alertThis += "\nend: " + endTime;
-        alertThis += "\nstart: " + startTime;
-        alert(alertThis);
         ytWidget.seekTo(ratio * (endTime - startTime) + startTime, true);
     }
 
     this.loadNewSong = function (songJSON) {
-        regeneratePlayer(songJSON.url, songJSON.meta.startTime, songJSON.meta.endTime);
+        startTime = songJSON.meta.startTime;
+        endTime = songJSON.meta.endTime;
+        ytWidget.loadVideoById({
+            'videoId': songJSON.url,
+            'startSeconds': startTime,
+            'endSeconds': endTime,
+            'suggestedQuality': 'large'
+        });
     }
 
     this.disable = function () {
+        awaitingInitialPlay = true;
         ytWidget.pauseVideo();
     }
 
     this.getRatio = function () {
-        return ytWidget.getCurrentTime() / ytWidget.getDuration();
+        return (ytWidget.getCurrentTime() - startTime) / (endTime - startTime);
     }
 }

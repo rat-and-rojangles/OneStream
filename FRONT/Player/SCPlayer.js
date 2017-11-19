@@ -19,7 +19,7 @@ var SCPlayer = function () {
                 player.initializeIfReady();
             });
             scWidget.bind(SC.Widget.Events.FINISH, function () {
-                player.onSCSongEnd()
+                player.onSongEnd();
                 playing = false;
             });
             scWidget.bind(SC.Widget.Events.PLAY_PROGRESS, function () {
@@ -50,13 +50,18 @@ var SCPlayer = function () {
     this.loadNewSong = function (songJSON) {
         var widgetOptions = {};
         widgetOptions.callback = function () {
-            scWidget.getDuration(function (d) {
-                alert(d);
-                currentDuration = d;
-                startTime = startTime.clampedLower(0);
-                endTime = endTime.clampedUpper(currentDuration);
-                scWidget.play();
-                player.enableControls();
+            scWidget.getSounds(function (sounds) {
+                if (sounds.length == 0) {
+                    alert('invalid link');
+                }
+                else {
+                    currentDuration = sounds[0].duration;
+                    startTime = startTime.clampedLower(0);
+                    endTime = endTime.clampedUpper(currentDuration);
+                    scWidget.seekTo(startTime);
+                    scWidget.play();
+                    player.enableControls();
+                }
             });
         };
         startTime = songJSON.meta.startTime;

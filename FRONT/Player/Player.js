@@ -8,6 +8,10 @@ var loadSong = function (link) {
         data.url = stripLinkForYouTubeID(link);
         data.fromYoutube = true;
     }
+    if (!data.url) {
+        alert('invalid link');
+        return;
+    }
     data.meta = {};
     data.meta.startTime = 0;
     data.meta.endTime = 9999999;
@@ -24,11 +28,15 @@ $(document).ready(function () {
         if (e.which == 32) {
             player.togglePlayback();
         }
-        // else if(e.which == )
     });
     slider = $('#slider');
-    slider.on('change', function () {
+    slider.held = false;
+    slider.on('mousedown', function () {
+        slider.held = true;
+    });
+    slider.on('mouseup', function () {
         player.seekTo(parseFloat(slider.val()));
+        slider.held = false;
     });
     pausePlay = $('#pausePlay');
     pausePlay.on('click', player.togglePlayback);
@@ -65,6 +73,7 @@ var Player = function () {
 
     //takes a JSON object (probably from the DB) and uses that to load up a song
     this.loadNewSong = function (songJSON) {
+        slider.val(0);
         if (!ready && playersReady == 2) {
             this.enableControls();
             ready = true;
@@ -113,6 +122,7 @@ var Player = function () {
     // Disables everything that has to wait for stuff to load
     // NOTE: everything should start disabled on page load 
     this.disableControls = function () {
+        slider.val(0);
         pausePlay.prop("disabled", true);
         slider.prop("disabled", true);
         enabled = false;
@@ -126,15 +136,12 @@ var Player = function () {
         setInterval(fireContinuouslyWhilePlaying, 1);
     }
 
-    this.onYTSongEnd = function () {
-        this.disableControls();
-    }
-    this.onSCSongEnd = function () {
+    this.onSongEnd = function () {
         this.disableControls();
     }
 
     var fireContinuouslyWhilePlaying = function () {
-        if (enabled && activePlayer.isPlaying()) {
+        if (enabled && !slider.held && activePlayer.isPlaying()) {
             slider.val(activePlayer.getRatio());
         }
     }
