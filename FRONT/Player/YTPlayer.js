@@ -17,6 +17,39 @@ var YTPlayer = function () {
     }
     createWidget();
 
+    var onReady = function () {
+        player.enableControls();
+        startTime = startTime.clampedLower(0);
+        endTime = endTime.clampedUpper(ytWidget.getDuration());
+        alert("ready");
+    }
+
+    var regeneratePlayer = function (id, start, end) {
+        startTime = start;
+        endTime = end;
+        alert('regenerating');
+        $('#ytPlayer').remove();
+        $('body').append($('<div id="ytPlayer" class="widget"></div>'));
+        ytWidget = new YT.Player('ytPlayer', {
+            height: '390',
+            width: '640',
+            videoId: id,
+            events: {
+                'onReady': onReady,
+                'onStateChange': onPlayerStateChange
+            },
+            playerVars: {
+                color: "white",
+                controls: 0,
+                disablekb: 1,
+                enablejsapi: 1,
+                autoplay: 1,
+                start: startTime,
+                end: endTime
+            }
+        });
+    }
+
     this.initializeWidget = function () {
         if (!ytWidget) {
             ytWidget = new YT.Player('ytPlayer', {
@@ -39,19 +72,8 @@ var YTPlayer = function () {
         }
     }
 
-    var awaitingLoad = false;
     var onPlayerStateChange = function (event) {
-        if (event.data == YT.PlayerState.CUED) {
-            awaitingLoad = true;
-        }
-        else if (awaitingLoad && event.data == YT.PlayerState.PLAYING) {
-            awaitingLoad = false;
-            startTime = startTime.clampedLower(0);
-            alert(ytWidget.getPlaybackRate());
-            endTime = endTime.clampedUpper(ytWidget.getDuration());
-            player.enableControls();
-        }
-        else if (event.data == YT.PlayerState.ENDED) {
+        if (event.data == YT.PlayerState.ENDED) {
             player.onYTSongEnd();
         }
     }
@@ -65,7 +87,7 @@ var YTPlayer = function () {
             ytWidget.pauseVideo();
         }
         else {
-            ytWidget.playVideo()
+            ytWidget.playVideo();
         }
     }
 
@@ -78,18 +100,7 @@ var YTPlayer = function () {
     }
 
     this.loadNewSong = function (songJSON) {
-        // TODO: SC uses milliseconds, YT uses seconds. should i standardize this or not?
-        // TODO: verify the duration
-        startTime = songJSON.meta.startTime;
-        endTime = songJSON.meta.endTime;
-        var videoParams = {
-            'videoId': songJSON.url,
-            // 'startSeconds': startTime,
-            // 'endSeconds': endTime,
-            'suggestedQuality': 'large'     // maybe
-        }
-        ytWidget.cueVideoById(videoParams);
-        ytWidget.playVideo();
+        regeneratePlayer(songJSON.url, songJSON.meta.startTime, songJSON.meta.endTime);
     }
 
     this.disable = function () {

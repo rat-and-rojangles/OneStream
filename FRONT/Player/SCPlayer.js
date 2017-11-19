@@ -24,6 +24,7 @@ var SCPlayer = function () {
             });
             scWidget.bind(SC.Widget.Events.PLAY_PROGRESS, function () {
                 scWidget.getPosition(function (p) {
+                    playing = true;
                     ratio = p / currentDuration;
                 });
             });

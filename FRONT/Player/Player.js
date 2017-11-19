@@ -16,6 +16,7 @@ var loadSong = function (link) {
 
 var slider;
 var songLinkField;
+var pausePlay;
 $(document).ready(function () {
     player = new Player();
     $('*').off('keypress keydown keyup');
@@ -29,7 +30,8 @@ $(document).ready(function () {
     slider.on('change', function () {
         player.seekTo(parseFloat(slider.val()));
     });
-    $('#pausePlay').on('click', player.togglePlayback);
+    pausePlay = $('#pausePlay');
+    pausePlay.on('click', player.togglePlayback);
     songLinkField = $('#songLink');
     $('#loadSongButton').on('click', function () {
         loadSong(songLinkField.val());
@@ -111,11 +113,15 @@ var Player = function () {
     // Disables everything that has to wait for stuff to load
     // NOTE: everything should start disabled on page load 
     this.disableControls = function () {
+        pausePlay.prop("disabled", true);
+        slider.prop("disabled", true);
         enabled = false;
         clearInterval(fireContinuouslyWhilePlaying);
     }
 
     this.enableControls = function () {
+        pausePlay.prop("disabled", false);
+        slider.prop("disabled", false);
         enabled = true;
         setInterval(fireContinuouslyWhilePlaying, 1);
     }
