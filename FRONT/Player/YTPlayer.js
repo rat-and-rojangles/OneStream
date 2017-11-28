@@ -111,8 +111,8 @@ var YTPlayer = function () {
     }
 
     this.loadNewSong = function (songJSON) {
-        startTime = songJSON.meta.startTime;
-        endTime = songJSON.meta.endTime;
+        startTime = songJSON.startTime;
+        endTime = songJSON.endTime;
         ytWidget.loadVideoById({
             'videoId': songJSON.url,
             'startSeconds': startTime,

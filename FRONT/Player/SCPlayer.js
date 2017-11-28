@@ -64,8 +64,8 @@ var SCPlayer = function () {
                 }
             });
         };
-        startTime = songJSON.meta.startTime;
-        endTime = songJSON.meta.endTime;
+        startTime = songJSON.startTime;
+        endTime = songJSON.endTime;
         scWidget.load(songJSON.url, widgetOptions);
         playing = false;
     }

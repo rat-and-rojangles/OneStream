@@ -2,25 +2,42 @@
 
 <html lang="en">
 
-    <head>
-        <title>Player demo</title>
-        <meta name="author" content="ratmaster Fischer">
-        <link rel="stylesheet" href="HideWidgets.css">
+	<head>
+		<title>Player demo</title>
+		<meta name="author" content="ratmaster Fischer">
+		<link rel="stylesheet" href="HideWidgets.css">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://w.soundcloud.com/player/api.js"></script>
-        <script src="Utility.js"></script>
-        <script src="Player/SCPlayer.js"></script>
-        <script src="Player/YTPlayer.js"></script>
-        <script src="Player/Player.js"></script>
-    </head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://w.soundcloud.com/player/api.js"></script>
+		<script src="https://rawgit.com/ratfr0/RatWorks/master/RatWorks.js"></script>
+		<script src="SampleComponents.js"></script>
+		<script src="Utility.js"></script>
+		<script src="Player/SCPlayer.js"></script>
+		<script src="Player/YTPlayer.js"></script>
+		<script src="Player/PlayQueue.js"></script>
+		<script src="Player/Player.js"></script>
+	</head>
+	<style>
+		.player-active {
+			background-color: #bf00ff;
+			color: #fff;
+		}
+	</style>
 
-    <body>
-        <div id="ytPlayer" class="widget"></div>
-        <input disabled=true id="slider" type="range" min="0" max="1" value="0" step="0.00001" id="myRange">
-        <button disabled=true id="pausePlay">pause/play</button>
-        <input type="text" id="songLink" value="">
-        <button id="loadSongButton">load song</button>
-    </body>
+	<body>
+		<fakeelement>oi</fakeelement>
+		<div id="ytPlayer" class="widget"></div>
+		<div id="controls">
+			<input disabled=true id="slider" type="range" min="0" max="1" value="0" step="0.00001" id="myRange">
+			<button disabled=true id="pausePlay">pause/play</button>
+			<input type="text" id="songLink" value="">
+			<button id="loadSongButton">add to queue</button>
+		</div>
+		<ul id="song-list">
+			<li class="player-active">Coffee</li>
+			<li>Tea</li>
+			<li>Milk</li>
+		</ul>
+	</body>
 
 </html>
