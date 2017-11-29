@@ -1,23 +1,3 @@
-var loadSong = function (link) {
-	var data = {};
-	if (link.includes("soundcloud.com")) {
-		data.url = link;
-		data.fromYoutube = false;
-	}
-	else {
-		data.url = stripLinkForYouTubeID(link);
-		data.fromYoutube = true;
-	}
-	if (!data.url) {
-		alert('invalid link');
-		return;
-	}
-	data.meta = {};
-	data.startTime = 0;
-	data.endTime = 9999999;
-	player.loadNewSong(data);
-}
-
 var slider;
 var songLinkField;
 var pausePlay;
@@ -40,9 +20,12 @@ $(document).ready(function () {
 	});
 	pausePlay = $('#pausePlay');
 	pausePlay.on('click', player.togglePlayback);
+	$('#forward').on('click', player.skipForward);
+	$('#backward').on('click', player.skipBackward);
+
 	songLinkField = $('#songLink');
 	$('#loadSongButton').on('click', function () {
-		loadSong(songLinkField.val());
+		player.queueSongEnd(sampleSongs.randomElement());
 	});
 });
 
@@ -73,7 +56,7 @@ var Player = function () {
 		}
 	}
 
-	//takes a JSON object (probably from the DB) and uses that to load up a song
+	//takes a JSON object (from the DB) and uses that to load up a song
 	this.loadNewSong = function (songJSON) {
 		slider.val(0);
 		if (!ready && playersReady == 2) {
@@ -81,8 +64,22 @@ var Player = function () {
 			ready = true;
 		}
 
+		var songClone = songJSON.clone();
+
+		if (songJSON.url.includes("soundcloud.com")) {
+			songClone.url = songJSON.url;
+			var fromYoutube = false;
+		}
+		else {
+			songClone.url = stripLinkForYouTubeID(songJSON.url);
+			var fromYoutube = true;
+		}
+		if (!songJSON.url) {
+			this.onErrorLoadingSong();
+			return;
+		}
+
 		exampleParameter = {
-			fromYoutube: false, //true if from YT, false if from SC. will be appended in browser, not stored in DB
 			url: "soundcloud_or_youtube_URL",
 			startTime: 0,
 			endTime: 10000,
@@ -92,11 +89,10 @@ var Player = function () {
 				album: "Album Name"
 			}
 		}
-		// var songNameVue;    //suppose this already exists
-		// songNameVue.data = songJSON.meta.name;  // change it to match the name of the new song
-		// and so on for all the metadata
 
-		if (songJSON.fromYoutube) {
+		//then update player current
+
+		if (fromYoutube) {
 			if (activePlayer == scPlayer) {
 				scPlayer.disable();
 			}
@@ -109,7 +105,7 @@ var Player = function () {
 			activePlayer = scPlayer;
 		}
 		this.disableControls();
-		activePlayer.loadNewSong(songJSON);
+		activePlayer.loadNewSong(songClone);
 	}
 
 	var playersReady = 0;
@@ -117,7 +113,10 @@ var Player = function () {
 	this.initializeIfReady = function () {
 		playersReady++;
 		if (playersReady == 2) {
-			// allow a song to be loaded
+			ready = true;
+			callbacks[Player.events.READY].forEach(function (readyCallback) {
+				readyCallback();
+			});
 		}
 	}
 
@@ -132,24 +131,63 @@ var Player = function () {
 	}
 
 	this.enableControls = function () {
-		pausePlay.prop("disabled", false);
-		slider.prop("disabled", false);
-		enabled = true;
-		setInterval(fireContinuouslyWhilePlaying, 1);
+		// pausePlay.prop("disabled", false);
+		// slider.prop("disabled", false);
+		// enabled = true;
 	}
 
 	this.onSongEnd = function () {
-		this.disableControls();
+		if (ready) {
+			queue.skipForward();
+		}
 	}
 
 	this.stop = function () {
-		activePlayer.disable();
-		this.disableControls();
+		if (ready) {
+			activePlayer.disable();
+			// disable controls
+		}
 	}
 
 	var fireContinuouslyWhilePlaying = function () {
-		if (enabled && !slider.held && activePlayer.isPlaying()) {
-			slider.val(activePlayer.getRatio());
+		// update the slider
+		// if (enabled && !slider.held && activePlayer.isPlaying()) {
+		// 	slider.val(activePlayer.getRatio());
+		// }
+	}
+
+	this.queueSongEnd = function (songJSON) {
+		if (ready) {
+			queue.addToEnd(songJSON);
 		}
 	}
+
+	this.skipForward = function () {
+		if (ready) {
+			queue.skipForward();
+		}
+	}
+
+	this.skipBackward = function () {
+		if (ready) {
+			queue.skipBackward();
+		}
+	}
+
+	this.onErrorLoadingSong = function () {
+		alert('error loading song');
+		clearInterval(fireContinuouslyWhilePlaying);
+	}
+	this.onSuccessfullyLoadedSong = function () {
+		setInterval(fireContinuouslyWhilePlaying, 1);
+	}
+
+	// events
+	var callbacks = {};
+	callbacks[Player.events.READY] = [];
+	this.registerCallback = function (eventType, callback) {
+		callbacks[eventType].push(callback);
+	}
 }
+Player.events.READY = 'ready';
+// Player.events.SONG_END = 'songend';

@@ -10,8 +10,9 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://w.soundcloud.com/player/api.js"></script>
 		<script src="https://rawgit.com/ratfr0/RatWorks/master/RatWorks.js"></script>
-		<script src="SampleComponents.js"></script>
+		<script src="Player/SampleComponents.js"></script>
 		<script src="Utility.js"></script>
+		<script src="Player/SampleSongs.js"></script>
 		<script src="Player/SCPlayer.js"></script>
 		<script src="Player/YTPlayer.js"></script>
 		<script src="Player/PlayQueue.js"></script>
@@ -25,18 +26,19 @@
 	</style>
 
 	<body>
-		<fakeelement>oi</fakeelement>
 		<div id="ytPlayer" class="widget"></div>
 		<div id="controls">
-			<input disabled=true id="slider" type="range" min="0" max="1" value="0" step="0.00001" id="myRange">
-			<button disabled=true id="pausePlay">pause/play</button>
+			<input id="slider" type="range" min="0" max="1" value="0" step="0.00001" id="myRange">
+
 			<input type="text" id="songLink" value="">
-			<button id="loadSongButton">add to queue</button>
+			<button id="loadSongButton">queue random song</button>
+		</div>
+		<div id="controls2">
+			<button id="backward"><<</button>
+			<button id="pausePlay">||</button>
+			<button id="forward">>></button>
 		</div>
 		<ul id="song-list">
-			<li class="player-active">Coffee</li>
-			<li>Tea</li>
-			<li>Milk</li>
 		</ul>
 	</body>
 

@@ -5,6 +5,17 @@ Number.prototype.isInteger = function () {
 Array.prototype.validIndex = function (index) {
 	return index.isInteger() && index >= 0 && index < this.length;
 }
+Array.prototype.randomElement = function () {
+	return this[Math.floor(Math.random() * this.length)];
+}
+
+Object.prototype.clone = function () {
+	return JSON.parse(JSON.stringify(this));
+}
+
+Math.lerp = function (a, b, t) {
+	return (1 - t) * a + t * b;
+}
 
 String.prototype.isAlphaNumeric = function () {
 	for (var x = 0; x < this.length; x++) {
