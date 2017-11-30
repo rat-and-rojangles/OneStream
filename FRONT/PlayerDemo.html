@@ -2,44 +2,59 @@
 
 <html lang="en">
 
-	<head>
-		<title>Player demo</title>
-		<meta name="author" content="ratmaster Fischer">
-		<link rel="stylesheet" href="HideWidgets.css">
+<head>
+	<title>Player demo</title>
+	<meta name="author" content="ratmaster Fischer">
+	<link rel="stylesheet" href="HideWidgets.css">
+	<link rel="stylesheet" href="player.css">
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://w.soundcloud.com/player/api.js"></script>
-		<script src="https://rawgit.com/ratfr0/RatWorks/master/RatWorks.js"></script>
-		<script src="Player/SampleComponents.js"></script>
-		<script src="Utility.js"></script>
-		<script src="Player/SampleSongs.js"></script>
-		<script src="Player/SCPlayer.js"></script>
-		<script src="Player/YTPlayer.js"></script>
-		<script src="Player/PlayQueue.js"></script>
-		<script src="Player/Player.js"></script>
-	</head>
-	<style>
-		.player-active {
-			background-color: #bf00ff;
-			color: #fff;
-		}
-	</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-	<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://w.soundcloud.com/player/api.js"></script>
+	<script src="https://rawgit.com/ratfr0/RatWorks/master/RatWorks.js"></script>
+	<script src="Player/SampleComponents.js"></script>
+	<script src="Utility.js"></script>
+	<script src="Player/SampleSongs.js"></script>
+	<script src="Player/SCPlayer.js"></script>
+	<script src="Player/YTPlayer.js"></script>
+	<script src="Player/PlayQueue.js"></script>
+	<script src="Player/Player.js"></script>
+</head>
+<style>
+.player-active {
+	background-color: #bf00ff;
+	color: #fff;
+}
+</style>
+
+<body>
+	<div class="container-fluid">
 		<div id="ytPlayer" class="widget"></div>
-		<div id="controls">
-			<input id="slider" type="range" min="0" max="1" value="0" step="0.00001" id="myRange">
+		<div class="row">
+			<div class="col-sm-2">This is where all the playlists and navigation will go.</div>
+			<div class="col-sm-10">This is where the big screen of the player will go.<br>
+				<input type="text" id="songLink" value="">
+				<button id="loadSongButton" class="btn">queue random song</button>
+				<ul id="song-list">
+				</ul>
+			</div>
+		</div>
 
-			<input type="text" id="songLink" value="">
-			<button id="loadSongButton">queue random song</button>
+		<div class="row top-buffer">
+				<input class="mx-auto slider" id="slider myRange" type="range" min="0" max="1" value="0" step="0.00001">
 		</div>
-		<div id="controls2">
-			<button id="backward"><<</button>
-			<button id="pausePlay">||</button>
-			<button id="forward">>></button>
+		<div class="row top-buffer">
+			<div id="controls2" class="mx-auto">
+				<button id="backward" class="btn"><<</button>
+				<button id="pausePlay" class="btn">||</button>
+				<button id="forward" class="btn">>></button>
+			</div>
 		</div>
-		<ul id="song-list">
-		</ul>
-	</body>
+	</div>
+</body>
 
 </html>
