@@ -1,33 +1,3 @@
-// var slider;
-// var songLinkField;
-// var pausePlay;
-// $(document).ready(function () {
-// 	player = new Player();
-// 	$('*').off('keypress keydown keyup');
-// 	$(document).on('keypress', function (e) {
-// 		if (e.which == 32) {
-// 			player.togglePlayback();
-// 		}
-// 	});
-// 	slider = $('#slider');
-// 	slider.held = false;
-// 	slider.on('mousedown', function () {
-// 		slider.held = true;
-// 	});
-// 	slider.on('mouseup', function () {
-// 		player.seekTo(parseFloat(slider.val()));
-// 		slider.held = false;
-// 	});
-// 	pausePlay = $('#pausePlay');
-// 	pausePlay.on('click', player.togglePlayback);
-// 	$('#forward').on('click', player.skipForward);
-// 	$('#backward').on('click', player.skipBackward);
-
-// 	songLinkField = $('#songLink');
-// 	$('#loadSongButton').on('click', function () {
-// 		player.queueSongEnd(sampleSongs.randomElement());
-// 	});
-// });
 
 var Player = function () {
 	var scPlayer = new SCPlayer();
@@ -36,7 +6,6 @@ var Player = function () {
 
 	var queue = new PlayQueue();
 
-	var enabled = false;
 	var ready = false;
 
 	this.initializeYouTubeWidget = function () {
@@ -45,67 +14,55 @@ var Player = function () {
 	}
 
 	this.seekTo = function (ratio) {
-		if (enabled) {
+		if (ready) {
 			activePlayer.seekTo(ratio);
 		}
 	}
 
 	this.togglePlayback = function () {
-		if (enabled) {
+		if (ready) {
 			activePlayer.togglePlayback();
 		}
 	}
 
 	//takes a JSON object (from the DB) and uses that to load up a song
 	this.loadNewSong = function (songJSON) {
-		slider.val(0);
-		if (!ready && playersReady == 2) {
-			this.enableControls();
-			ready = true;
-		}
+		if (ready) {
+			var songClone = songJSON.clone();
 
-		var songClone = songJSON.clone();
-
-		if (songJSON.url.includes("soundcloud.com")) {
-			songClone.url = songJSON.url;
-			var fromYoutube = false;
-		}
-		else {
-			songClone.url = stripLinkForYouTubeID(songJSON.url);
-			var fromYoutube = true;
-		}
-		if (!songJSON.url) {
-			this.onErrorLoadingSong();
-			return;
-		}
-
-		exampleParameter = {
-			url: "soundcloud_or_youtube_URL",
-			startTime: 0,
-			endTime: 10000,
-			meta: {
-				name: "Song Name",
-				artist: "Artist Name",
-				album: "Album Name"
+			if (songJSON.url.includes("soundcloud.com")) {
+				songClone.url = songJSON.url;
+				var fromYoutube = false;
 			}
-		}
-
-		//then update player current
-
-		if (fromYoutube) {
-			if (activePlayer == scPlayer) {
-				scPlayer.disable();
+			else {
+				songClone.url = stripLinkForYouTubeID(songJSON.url);
+				var fromYoutube = true;
 			}
-			activePlayer = ytPlayer;
-		}
-		else {
-			if (activePlayer == ytPlayer) {
-				ytPlayer.disable();
+			if (!songJSON.url) {
+				this.onErrorLoadingSong();
+				return;
 			}
-			activePlayer = scPlayer;
+
+			controls.setEnabled(false);
+
+			exampleParameter = {
+				url: "soundcloud_or_youtube_URL",
+				startTime: 0,
+				endTime: 10000,
+				meta: {
+					name: "Song Name",
+					artist: "Artist Name",
+					album: "Album Name"
+				}
+			}
+
+			//then update player current
+			scPlayer.disable();
+			ytPlayer.disable();
+
+			activePlayer = fromYoutube ? ytPlayer : scPlayer;
+			activePlayer.loadNewSong(songClone);
 		}
-		controls.setEnabled(false);
-		activePlayer.loadNewSong(songClone);
 	}
 
 	var playersReady = 0;
@@ -131,8 +88,8 @@ var Player = function () {
 		}
 	}
 
-	var getRatio = function () {
-		activePlayer.getRatio();
+	this.getRatio = function () {
+		return activePlayer.getRatio();
 	}
 
 	this.queueSongEnd = function (songJSON) {

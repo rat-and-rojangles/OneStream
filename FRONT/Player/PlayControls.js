@@ -1,12 +1,13 @@
 var PlayControls = function (jqPausePlay, jqForward, jqBackward, jqSlider) {
+	var self = this;
 	jqPausePlay.on('click', function () {
-		this.onPausePlayPressed();
+		self.onPausePlayPressed();
 	});
 	jqForward.on('click', function () {
-		this.onForwardPressed();
+		self.onForwardPressed();
 	});
 	jqBackward.on('click', function () {
-		this.onBackwardPressed();
+		self.onBackwardPressed();
 	});
 
 	var customSlider = new CustomSlider(jqSlider, this);
@@ -35,9 +36,9 @@ var PlayControls = function (jqPausePlay, jqForward, jqBackward, jqSlider) {
 		}
 	}
 	var setEnabledHelper = function (state) {
-		jqPausePlay.prop("disabled", state);
-		jqForward.prop("disabled", state);
-		jqBackward.prop("disabled", state);
+		jqPausePlay.prop("disabled", !state);
+		jqForward.prop("disabled", !state);
+		jqBackward.prop("disabled", !state);
 		customSlider.setEnabled(state);
 	}
 	this.getEnabled = function () {
@@ -47,13 +48,14 @@ var PlayControls = function (jqPausePlay, jqForward, jqBackward, jqSlider) {
 
 var CustomSlider = function (jqSlider, controller) {
 	var held = false;
+	var self = this;
 
 	jqSlider.on('mousedown', function () {
-		held = this.getEnabled();
+		held = self.getEnabled();
 	});
 	jqSlider.on('mouseup', function () {
 		held = false;
-		if (this.getEnabled()) {
+		if (self.getEnabled()) {
 			controller.onSliderRelease();
 		}
 	});
@@ -65,7 +67,10 @@ var CustomSlider = function (jqSlider, controller) {
 		return parseFloat(jqSlider.val());
 	}
 	this.setEnabled = function (state) {
-		held = held && !state;
+		if (!state) {
+			held = false;
+			jqSlider.val(0);
+		}
 		jqSlider.prop("disabled", !state);
 	}
 	this.getEnabled = function () {
