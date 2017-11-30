@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testing AJAX</title>
+    <script type = "text/javascript" src = "jquery-3.2.1.js"></script>
+</head>
+<body>
+
+<form>
+    <button id = "submit"> Create DB Entry </button>
+</form>
+
+</body>
+</html>
+
+<script type="text/javascript" src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#submit").click(function(){
+            // set php url
+            var url = "testingDB.php";
+
+            // setup the ajax request
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: 'json',
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function(result){
+                    console.log(result);
+                }
+            });
+        })
+    })
+
+
+</script>
+
