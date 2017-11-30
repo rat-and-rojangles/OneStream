@@ -189,5 +189,6 @@ var Player = function () {
 		callbacks[eventType].push(callback);
 	}
 }
+Player.events = {};
 Player.events.READY = 'ready';
 // Player.events.SONG_END = 'songend';
