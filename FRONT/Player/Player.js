@@ -1,33 +1,33 @@
-var slider;
-var songLinkField;
-var pausePlay;
-$(document).ready(function () {
-	player = new Player();
-	$('*').off('keypress keydown keyup');
-	$(document).on('keypress', function (e) {
-		if (e.which == 32) {
-			player.togglePlayback();
-		}
-	});
-	slider = $('#slider');
-	slider.held = false;
-	slider.on('mousedown', function () {
-		slider.held = true;
-	});
-	slider.on('mouseup', function () {
-		player.seekTo(parseFloat(slider.val()));
-		slider.held = false;
-	});
-	pausePlay = $('#pausePlay');
-	pausePlay.on('click', player.togglePlayback);
-	$('#forward').on('click', player.skipForward);
-	$('#backward').on('click', player.skipBackward);
+// var slider;
+// var songLinkField;
+// var pausePlay;
+// $(document).ready(function () {
+// 	player = new Player();
+// 	$('*').off('keypress keydown keyup');
+// 	$(document).on('keypress', function (e) {
+// 		if (e.which == 32) {
+// 			player.togglePlayback();
+// 		}
+// 	});
+// 	slider = $('#slider');
+// 	slider.held = false;
+// 	slider.on('mousedown', function () {
+// 		slider.held = true;
+// 	});
+// 	slider.on('mouseup', function () {
+// 		player.seekTo(parseFloat(slider.val()));
+// 		slider.held = false;
+// 	});
+// 	pausePlay = $('#pausePlay');
+// 	pausePlay.on('click', player.togglePlayback);
+// 	$('#forward').on('click', player.skipForward);
+// 	$('#backward').on('click', player.skipBackward);
 
-	songLinkField = $('#songLink');
-	$('#loadSongButton').on('click', function () {
-		player.queueSongEnd(sampleSongs.randomElement());
-	});
-});
+// 	songLinkField = $('#songLink');
+// 	$('#loadSongButton').on('click', function () {
+// 		player.queueSongEnd(sampleSongs.randomElement());
+// 	});
+// });
 
 var Player = function () {
 	var scPlayer = new SCPlayer();
@@ -104,7 +104,7 @@ var Player = function () {
 			}
 			activePlayer = scPlayer;
 		}
-		this.disableControls();
+		controls.setEnabled(false);
 		activePlayer.loadNewSong(songClone);
 	}
 
@@ -120,26 +120,8 @@ var Player = function () {
 		}
 	}
 
-	// Disables everything that has to wait for stuff to load
-	// NOTE: everything should start disabled on page load 
-	this.disableControls = function () {
-		slider.val(0);
-		pausePlay.prop("disabled", true);
-		slider.prop("disabled", true);
-		enabled = false;
-		clearInterval(fireContinuouslyWhilePlaying);
-	}
-
-	this.enableControls = function () {
-		// pausePlay.prop("disabled", false);
-		// slider.prop("disabled", false);
-		// enabled = true;
-	}
-
 	this.onSongEnd = function () {
-		if (ready) {
-			queue.skipForward();
-		}
+		this.skipForward();
 	}
 
 	this.stop = function () {
@@ -149,11 +131,8 @@ var Player = function () {
 		}
 	}
 
-	var fireContinuouslyWhilePlaying = function () {
-		// update the slider
-		// if (enabled && !slider.held && activePlayer.isPlaying()) {
-		// 	slider.val(activePlayer.getRatio());
-		// }
+	var getRatio = function () {
+		activePlayer.getRatio();
 	}
 
 	this.queueSongEnd = function (songJSON) {
@@ -176,10 +155,11 @@ var Player = function () {
 
 	this.onErrorLoadingSong = function () {
 		alert('error loading song');
-		clearInterval(fireContinuouslyWhilePlaying);
+		clearInterval(controls.updateSliderWhilePlaying);
 	}
 	this.onSuccessfullyLoadedSong = function () {
-		setInterval(fireContinuouslyWhilePlaying, 1);
+		controls.setEnabled(true);
+		setInterval(controls.updateSliderWhilePlaying, 1);
 	}
 
 	// events
@@ -191,4 +171,3 @@ var Player = function () {
 }
 Player.events = {};
 Player.events.READY = 'ready';
-// Player.events.SONG_END = 'songend';
