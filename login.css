@@ -10,19 +10,30 @@ html {
   background-color: black;
 }
 body {
-    opacity: 1;
-    transition: 1s opacity;
-    background-color: black;
+  opacity: 1;
+  transition: 1s opacity;
+  background-color: black;
 }
 body.fade-out {
-    opacity: 0;
-    transition: none;
+  opacity: 0;
+  transition: none;
 }
 #card_banner {
   height: 100%;
   width: 100%;
 }
 .card {
-  background-color: grey;
+  background-color: white;
   width: 30%;
+
+}
+.card-text {
+  text-align: center;
+
+}
+.centered-titles {
+  text-align: center;
+}
+.vertical-padding {
+  top: 40px;
 }
