@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OneStream New User</title>
+    <script type = "text/javascript" src = "jquery-3.2.1.js"></script>
+</head>
+<body>
+
+<form>
+    User:
+    <input id = "user_input" type = 'text'>
+    Password:
+    <input id = "pass_input" type = 'text'>
+    Verify Password:
+    <input id = "pass_verify_input" type = 'text'>
+    Email:
+    <input id = "email_input" type = 'text'>
+    <button id = "submit"> Register for OneStream </button>
+</form>
+
+</body>
+</html>
+
+<script type="text/javascript" src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#submit").click(function(){
+
+            var user = $("#user_input").val();
+            var pass = $("#pass_input").val();
+            var pass_verify = $("#pass_verify_input").val();
+            var email = $("#email_input").val();
+
+            if(pass === pass_verify){
+
+                var url = "RegisterNewUser.php";
+
+                var data = {user: user, pass: pass, email: email};
+
+
+                // setup the ajax request
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: 'JSON',
+                    success: function() {
+                    },
+                    error: function(){
+                    }
+                });
+
+
+
+            }else{
+                alert("Passwords do not match!");
+            }
+
+
+            });
+    });
+
+
+
+
+</script>
