@@ -1,0 +1,28 @@
+#banner {
+  height: 100%;
+  width: 100%;
+}
+#screen-1 {
+  display: none;
+  background-color: black;
+}
+html {
+  background-color: black;
+}
+body {
+    opacity: 1;
+    transition: 1s opacity;
+    background-color: black;
+}
+body.fade-out {
+    opacity: 0;
+    transition: none;
+}
+#card_banner {
+  height: 100%;
+  width: 100%;
+}
+.card {
+  background-color: grey;
+  width: 30%;
+}
