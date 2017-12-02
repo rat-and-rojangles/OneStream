@@ -27,4 +27,9 @@
     background: #4CAF50;
     cursor: pointer;
 }
-.top-buffer { margin-top:20px; }
+.top-buffer {
+  margin-top:20px;
+}
+#nav-pane, #play-place {
+  height: 80%;
+}
