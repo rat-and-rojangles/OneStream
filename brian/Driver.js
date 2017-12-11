@@ -18,7 +18,6 @@ $(document).ready(function () {
 	});
 
 	$('#loadSongButton').on('click', function () {
-		// player.queueSongEnd(sampleSongs.randomElement());
 		player.queueSongEnd(library.getSongs().randomElement());
 	});
 });
