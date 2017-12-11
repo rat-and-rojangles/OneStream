@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<title>Player demo</title>
+		<meta name="author" content="ratmaster Fischer">
+		<link rel="stylesheet" href="HideWidgets.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://w.soundcloud.com/player/api.js"></script>
+		<script src="https://rawgit.com/ratfr0/RatWorks/master/RatWorks.js"></script>
+		<script src="Player/SampleComponents.js"></script>
+		<script src="Utility.js"></script>
+		<script src="Player/SampleSongs.js"></script>
+		<script src="Player/SCPlayer.js"></script>
+		<script src="Player/YTPlayer.js"></script>
+		<script src="Player/Player.js"></script>
+		<script src="Player/PlayQueue.js"></script>
+		<script src="Player/PlayControls.js"></script>
+		<script src="Driver.js"></script>
+	</head>
+	<style>
+		.player-active {
+			background-color: #bf00ff;
+			color: #fff;
+		}
+
+		button {
+			background-color: #bf00ff;
+			color: #000;
+		}
+
+		button:disabled {
+			background-color: #555;
+			color: #777;
+		}
+	</style>
+
+	<body>
+		<div id="ytPlayer" class="widget"></div>
+		<div id="controls">
+			<input disabled=true id="slider" type="range" min="0" max="1" value="0" step="0.00001" id="myRange">
+
+			<input type="text" id="songLink" value="">
+			<button id="loadSongButton">queue random song</button>
+		</div>
+		<div id="controls2">
+			<button disabled=true id="backward">
+				<<</button>
+					<button disabled=true id="pausePlay">||</button>
+					<button disabled=true id="forward">>></button>
+		</div>
+		<ul id="song-list">
+		</ul>
+	</body>
+
+</html>

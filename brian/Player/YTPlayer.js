@@ -17,41 +17,9 @@ var YTPlayer = function () {
 	}
 	createWidget();
 
-	var onReady = function () {
-		player.enableControls();
-		startTime = startTime.clampedLower(0);
-		endTime = endTime.clampedUpper(ytWidget.getDuration());
-	}
-
 	var onError = function (e) {
 		player.onErrorLoadingSong();
 	}
-
-	// var regeneratePlayer = function (id, start, end) {
-	//     startTime = start;
-	//     endTime = end;
-	//     $('#ytPlayer').remove();
-	//     $('body').append($('<div id="ytPlayer" class="widget"></div>'));
-	//     ytWidget = new YT.Player('ytPlayer', {
-	//         height: '390',
-	//         width: '640',
-	//         videoId: id,
-	//         events: {
-	//             'onReady': onReady,
-	//             'onStateChange': onPlayerStateChange,
-	//             'onError': onError
-	//         },
-	//         playerVars: {
-	//             color: "white",
-	//             controls: 0,
-	//             disablekb: 1,
-	//             enablejsapi: 1,
-	//             autoplay: 1,
-	//             start: startTime,
-	//             end: endTime
-	//         }
-	//     });
-	// }
 
 	this.initializeWidget = function () {
 		if (!ytWidget) {
@@ -82,11 +50,11 @@ var YTPlayer = function () {
 	var onPlayerStateChange = function (event) {
 		if (awaitingInitialPlay && ytWidget.getDuration() > 0) {
 			awaitingInitialPlay = false;
-			player.enableControls();
 			startTime = startTime.clampedLower(0);
 			endTime = endTime.clampedUpper(ytWidget.getDuration());
 			ytWidget.seekTo(startTime);
 			ytWidget.playVideo();
+			player.onSuccessfullyLoadedSong();
 		}
 		if (event.data == YT.PlayerState.ENDED) {
 			player.onSongEnd();
@@ -123,7 +91,7 @@ var YTPlayer = function () {
 
 	this.disable = function () {
 		awaitingInitialPlay = true;
-		ytWidget.pauseVideo();
+		ytWidget.stopVideo();
 	}
 
 	this.getRatio = function () {
