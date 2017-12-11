@@ -1,7 +1,7 @@
 var generateSongEntry = function (data) {
 	var html = '<div class="song-entry"><li>';
-	html += data.meta.title + '</li><ul>'
-	html += '<li>' + data.meta.artist + ' | ' + data.meta.album + '</li>'
+	html += data.title + '</li><ul>'
+	html += '<li>' + data.artist + ' | ' + data.album + '</li>'
 	html += '</ul></div>';
 	return html;
 }

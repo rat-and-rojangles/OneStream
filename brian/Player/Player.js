@@ -82,7 +82,7 @@ var Player = function () {
 	}
 
 	this.stop = function () {
-		if (ready) {
+		if (ready && activePlayer) {
 			activePlayer.disable();
 			// disable controls
 		}
@@ -96,6 +96,10 @@ var Player = function () {
 		if (ready) {
 			queue.addToEnd(songJSON);
 		}
+	}
+
+	this.dumpQueue = function () {
+		queue.debugRemoveAll();
 	}
 
 	this.skipForward = function () {

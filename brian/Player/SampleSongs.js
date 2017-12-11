@@ -17,12 +17,12 @@ var FakeSong = function (url, title, artist) {
 	this.url = url;
 	this.startTime = 0;
 	this.endTime = 99999;
-	this.meta = {
-		title: title,
-		artist: artist,
-		album: "Album Not Set"
-	};
+	this.title = title;
+	this.artist = artist,
+	this.album = "Album Not Set";
+	this.tags = [];
 }
+
 
 var sampleSongs = [];
 sampleSongs.push(new FakeSong('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop'));
