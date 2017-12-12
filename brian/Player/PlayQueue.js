@@ -34,6 +34,19 @@ var PlayQueue = function () {
 
 	this.remove = function (index) {
 		NOTIMPLEMENTED();
+		if (songs.validIndex(index)) {
+			songs.splice(index, 1);
+			if (index < currentIndex) {
+				currentIndex--;
+				player.loadNewSong(songs[currentIndex]);
+			}
+			else if (index == currentIndex) {
+				player.loadNewSong(songs[currentIndex]);
+			}
+		}
+		else {
+			console.error("INVALID INDEX attempting remove from queue");
+		}
 	}
 	this.skipBackward = function () {
 		if (currentIndex > 0) {

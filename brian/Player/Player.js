@@ -66,10 +66,10 @@ var Player = function () {
 	}
 
 	var playersReady = 0;
-	// Initializes the player after both YT and SC are ready
+	// Initializes the player after both YT, SC, and database ajax are ready
 	this.initializeIfReady = function () {
 		playersReady++;
-		if (playersReady == 2) {
+		if (playersReady == 3) {
 			ready = true;
 			callbacks[Player.events.READY].forEach(function (readyCallback) {
 				readyCallback();

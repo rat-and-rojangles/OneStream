@@ -3,14 +3,36 @@ var Library = function () {
 	var songs = [];
 
 	var populate = function () {
-		// yeah yeah should do ajax. this is demo
-		songs.push(new FakeSong('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop'));
-		songs.push(new FakeSong('https://soundcloud.com/tsundere-alley/darling?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Darling', 'Tsundere Alley'));
-		songs.push(new FakeSong('https://soundcloud.com/ashmusiczone/sonic-3-knuckles-desert-palace-ashzone-remix', 'Desert Palace (AshZone Remix)', 'AshZone'));
-		songs.push(new FakeSong('https://www.youtube.com/watch?v=hcqoZZa3wVY&index=7&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Thank You', 'Sir J.'));
-		songs.push(new FakeSong('https://www.youtube.com/watch?v=nd-4DFm8hEA&index=24&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Rust (Beta)', 'El Huervo'));
-		songs.push(new FakeSong('https://www.youtube.com/watch?v=R2zXxQHBpd8', 'Will He', 'Joji'));
-		songs.push(new FakeSong('https://soundcloud.com/chloeburbank/i-dont-wanna-waste-my-time', 'i dont wanna waste my time', 'Joji'));
+		// setup the ajax request
+		if (false) {
+			$.ajax({
+				type: "GET",
+				url: "DisplaySongs.php",
+				data: { user: "SomeUser" },
+				dataType: 'JSON',
+				success: function (result) {
+					$(document.getElementById("song_area")).append('<div> Successfully Returned </div>');
+					console.log(result);
+
+					for (var i = 0; i < result.length; i++) {
+						songs.push(result);
+					}
+					player.initializeIfReady();
+				},
+				error: function (result) {
+					alert("error retrieving from DB\n" + result);
+					console.log(result);
+				}
+			});
+		}
+		songs.push(new Song('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop'));
+		songs.push(new Song('https://soundcloud.com/tsundere-alley/darling?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Darling', 'Tsundere Alley'));
+		songs.push(new Song('https://soundcloud.com/ashmusiczone/sonic-3-knuckles-desert-palace-ashzone-remix', 'Desert Palace (AshZone Remix)', 'AshZone'));
+		songs.push(new Song('https://www.youtube.com/watch?v=hcqoZZa3wVY&index=7&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Thank You', 'Sir J.'));
+		songs.push(new Song('https://www.youtube.com/watch?v=nd-4DFm8hEA&index=24&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Rust (Beta)', 'El Huervo'));
+		songs.push(new Song('https://www.youtube.com/watch?v=R2zXxQHBpd8', 'Will He', 'Joji'));
+		songs.push(new Song('https://soundcloud.com/chloeburbank/i-dont-wanna-waste-my-time', 'i dont wanna waste my time', 'Joji'));
+		player.initializeIfReady();
 	}
 	populate();
 
@@ -61,16 +83,25 @@ var arrayIntersectIgnoreCase = function (arr1, arr2) {
 }
 
 // does not use boundaries
-var FakeSong = function (url, title, artist) {
+var Song = function (url, title, artist, album, tags, start, end) {
 	this.url = url;
-	this.startTime = 0;
-	this.endTime = 99999;
 	this.title = title;
-	this.artist = artist,
-		this.album = "Album Not Set";
-	this.tags = [];
+	this.artist = artist;
+	this.album = album;
+
+	if (!tags) {
+		this.tags = [];
+	}
+	else {
+		this.tags = tags;
+	}
+
+	this.startTime = 0;
+	this.endTime = 9999999;
 }
 
+
+/*
 // just an example
 var Song = function () {
 	this.title = "title not set";
@@ -94,3 +125,4 @@ var Song = function () {
 		startTime = fromYT ? seconds : seconds * 1000;
 	}
 }
+*/
