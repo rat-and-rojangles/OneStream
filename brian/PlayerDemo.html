@@ -18,6 +18,7 @@
 		<script src="Player/Player.js"></script>
 		<script src="Player/PlayQueue.js"></script>
 		<script src="Player/PlayControls.js"></script>
+		<script src="Player/Library.js"></script>
 		<script src="Driver.js"></script>
 	</head>
 	<style>
@@ -42,8 +43,9 @@
 		<div id="controls">
 			<input disabled=true id="slider" type="range" min="0" max="1" value="0" step="0.00001" id="myRange">
 
-			<input type="text" id="songLink" value="">
-			<button id="loadSongButton">queue random song</button>
+			<input type="text" id="inputBox" value="">
+			<button id="submitBox">submit box</button>
+			<button id="loadSongButton">queue random song from library</button>
 		</div>
 		<div id="controls2">
 			<button disabled=true id="backward">

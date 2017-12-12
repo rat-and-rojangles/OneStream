@@ -25,14 +25,15 @@ var PlayQueue = function () {
 		rebuildHTML();
 	}
 
+	this.debugRemoveAll = function () {
+		player.stop();
+		songs = [];
+		currentIndex = -1;
+		rebuildHTML();
+	}
+
 	this.remove = function (index) {
-		// if (index < currentIndex) {
-		// 	currentIndex--;
-		// }
-		// else if (index == currentIndex && currentIndex != songs.length - 1) {
-		// 	songs.splice(index, 1);
-		// }
-		new NotImplemented();
+		NOTIMPLEMENTED();
 	}
 	this.skipBackward = function () {
 		if (currentIndex > 0) {
