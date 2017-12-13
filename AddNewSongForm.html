@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OneStream New User</title>
+    <script type = "text/javascript" src = "jquery-3.2.1.js"></script>
+</head>
+<body>
+
+<form>
+    Title:
+    <input id = "title_input" type = 'text'>
+    Artist:
+    <input id = "artist_input" type = 'text'>
+    Album:
+    <input id = "album_input" type = 'text'>
+    Genre:
+    <input id = "genre_input" type = 'text'>
+    URL:
+    <input id = "url_input" type = 'text'>
+    Start Time (minutes and seconds):
+    <input id = "start_minutes_input" type = 'text'>
+    <input id = "start_seconds_input" type = 'text'>
+    End Time (minutes and seconds):
+    <input id = "end_minutes_input" type = 'text'>
+    <input id = "end_seconds_input" type = 'text'>
+
+    User:
+    <input id = "user_input" type = 'text'>
+
+    <button id = "submit"> Add Song </button>
+</form>
+
+</body>
+</html>
+
+<script type="text/javascript" src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#submit").click(function(){
+
+            var title = $("#title_input").val();
+            var artist = $("#artist_input").val();
+            var album = $("#album_input").val();
+            var genre = $("#genre_input").val();
+            var song_url = $("#url_input").val();
+            var user = $("#user_input").val();
+
+            var start_time_minutes = parseInt($("#start_minutes_input").val()) * 60;
+            var start_time_seconds = parseInt($("#start_seconds_input").val());
+            var start_time = String(start_time_minutes + start_time_seconds);
+
+            var end_time_minutes = parseInt($("#end_minutes_input").val()) * 60;
+            var end_time_seconds = parseInt($("#end_seconds_input").val());
+            var end_time = String(end_time_minutes + end_time_seconds);
+
+            var url = "AddNewSong.php";
+
+                var data = {title: title, artist: artist, album: album, genre: genre, song_url: song_url, start_time: start_time, end_time: end_time, user: user};
+
+                // setup the ajax request
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: 'JSON',
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function(result){
+                        console.log(result);
+                    }
+                });
+        });
+    });
+</script>
