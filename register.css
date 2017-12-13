@@ -1,0 +1,18 @@
+.card {
+  background-color: white;
+  width: 30%;
+
+}
+
+.card_form {
+  text-align: center;
+
+}
+
+html {
+  background-color: black;
+}
+
+.vertical-padding {
+  top: 40px;
+}
