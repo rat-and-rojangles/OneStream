@@ -21,8 +21,11 @@
 	<script src="Player/SampleSongs.js"></script>
 	<script src="Player/SCPlayer.js"></script>
 	<script src="Player/YTPlayer.js"></script>
-	<script src="Player/PlayQueue.js"></script>
 	<script src="Player/Player.js"></script>
+	<script src="Player/PlayQueue.js"></script>
+	<script src="Player/PlayControls.js"></script>
+	<script src="Player/Library.js"></script>
+	<script src="Driver.js"></script>
 </head>
 
 <body>
@@ -38,7 +41,8 @@
 			</div>
 			<div id="play-place" class="col-sm-10"><br />
 				<input type="text" id="songLink" value="">
-				<button id="loadSongButton" class="btn">queue random song</button>
+				<button id="submitBox" class="btn">submit box</button>
+				<button id="loadSongButton" class="btn">queue random song from library</button>
 				<ul id="song-list">
 				</ul>
 			</div>
