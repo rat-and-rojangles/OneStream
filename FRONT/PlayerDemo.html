@@ -24,19 +24,19 @@
 	<script src="Player/PlayQueue.js"></script>
 	<script src="Player/Player.js"></script>
 </head>
-<style>
-.player-active {
-	background-color: #bf00ff;
-	color: #fff;
-}
-</style>
 
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid" id="screen2">
 		<div id="ytPlayer" class="widget"></div>
-		<div class="row">
-			<div id="nav-pane" class="col-sm-2">This is where all the playlists and navigation will go.</div>
-			<div id="play-place" class="col-sm-10">This is where the big screen of the player will go.<br>
+		<div class="row" id="nav-row">
+			<div id="nav-pane" class="col-sm-2">
+				<ul id="nav-buttons">
+					<li class="hover">Home</li>
+					<li class="hover">Library</li>
+					<li class="hover">Playlists</li>
+				</ul>
+			</div>
+			<div id="play-place" class="col-sm-10"><br />
 				<input type="text" id="songLink" value="">
 				<button id="loadSongButton" class="btn">queue random song</button>
 				<ul id="song-list">
