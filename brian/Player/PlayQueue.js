@@ -25,7 +25,7 @@ var PlayQueue = function () {
 		rebuildHTML();
 	}
 
-	this.debugRemoveAll = function () {
+	this.removeAll = function () {
 		player.stop();
 		songs = [];
 		currentIndex = -1;
@@ -33,7 +33,6 @@ var PlayQueue = function () {
 	}
 
 	this.remove = function (index) {
-		NOTIMPLEMENTED();
 		if (songs.validIndex(index)) {
 			songs.splice(index, 1);
 			if (index < currentIndex) {

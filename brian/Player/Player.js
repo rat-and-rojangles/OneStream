@@ -99,7 +99,7 @@ var Player = function () {
 	}
 
 	this.dumpQueue = function () {
-		queue.debugRemoveAll();
+		queue.removeAll();
 	}
 
 	this.skipForward = function () {
