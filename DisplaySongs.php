@@ -14,30 +14,32 @@ $user = $_GET['user'];
 $connect = mysqli_connect($dbhost, $dbuser, $dbpass)
 or die("Unable to Connect to '$dbhost'");
 
-// troubleshoot if connect worked
-// NOTE: this only works by running the php file by itself and not through HTML
-//if($connect){
-//    echo "Connected to host<br>";
-//}
-
 // select db on server
 mysqli_select_db($connect, 'mckellydb')
 or die("Could not open the db '$dbname'");
 
-//if($connect){
-//    echo "Connected to DB<br>";
-//}
-
-
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
-    $sql = "SELECT * FROM Song WHERE User_ID=$user";
-$result = mysqli_query($connect, $sql);
+   // $sql = "SELECT * FROM Song WHERE User_ID=$user";
+    $song_sql = "SELECT * FROM Song WHERE User_ID=$user";
+    $song_result = mysqli_query($connect, $song_sql);
 
-while($row = mysqli_fetch_assoc($result))
+    while($row = mysqli_fetch_assoc($song_result))
     $test[] = $row;
 
-print json_encode($test);
+    $playlist_sql = "SELECT * FROM Playlist WHERE User_ID=$user";
+    $playlist_result = mysqli_query($connect, $playlist_sql);
+
+    while($row = mysqli_fetch_assoc($playlist_result))
+        $test[] = $row;
+
+    $playlist_song_sql = "SELECT * FROM SongPlaylistJunction WHERE User_ID=$user";
+    $playlist_song_result = mysqli_query($connect, $playlist_song_sql);
+
+    while($row = mysqli_fetch_assoc($playlist_song_result))
+        $test[] = $row;
+
+    print json_encode($test);
 
 }
 
