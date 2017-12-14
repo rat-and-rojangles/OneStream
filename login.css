@@ -46,3 +46,9 @@ body.fade-out {
 .vertical-padding {
   top: 40px;
 }
+#submit {
+  margin-left: 40%;
+}
+#login-form {
+  margin-left: 10%;
+}
