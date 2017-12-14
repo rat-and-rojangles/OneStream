@@ -1,7 +1,7 @@
 // jqParent is a child of the open box in the html
 // all of the songs will go in here
 
-var SongSelection = function (songs_) {
+var SongSelection = function (songs_, skipSort) {
 	this.sortByTitle = function () {
 		sortTwoLayer("title", "artist");
 	}
@@ -18,26 +18,30 @@ var SongSelection = function (songs_) {
 	var rebuildHTML = function () {
 		var jqParent = $("#song-list");	// or whatever we call it
 		jqParent.html("");
-		for (var x = 0; x < songs.length; x++) {
-			var newSongElement = RatWorks.appendNewComponent('song-entry', songs[x], jqParent);
-			newSongElement.song = songs[x];
+		for (var x = songs.length - 1; x >= 0; x--) {
+			let tempSong = songs[x];
+			let newSongElement = RatWorks.appendNewComponent('song-entry', tempSong, jqParent);
 			newSongElement.find('.artist-link').on('click', function () {
-				songSelection = new SongSelection(library.filterByParameter('artist', newSongElement.song.artist));
+				console.log(tempSong);
+				showArtist(tempSong.artist);
 			});
 			newSongElement.find('.album-link').on('click', function () {
-				songSelection = new SongSelection(library.filterByParameter('album', newSongElement.song.album));
+				console.log(tempSong);
+				showAlbum(tempSong.album);
 			});
 			newSongElement.find('.queue-next-button').on('click', function () {
-				player.queueSongNext(newSongElement.song);
+				console.log(tempSong);
+				player.queueSongNext(tempSong);
 			});
 			newSongElement.find('.queue-end-button').on('click', function () {
-				player.queueSongEnd(newSongElement.song);
+				console.log(tempSong);
+				player.queueSongEnd(tempSong);
 			});
 			newSongElement.find('.edit-button').on('click', function () {
 				NOTIMPLEMENTED();
 			});
 			newSongElement.find('.remove-button').on('click', function () {
-				library.removeFromLibrary(newSongElement.song);
+				library.removeFromLibrary(tempSong);
 				rebuildHTML();
 			});
 		}
@@ -70,5 +74,8 @@ var SongSelection = function (songs_) {
 	}
 
 	var songs = songs_.slice();
-	this.sortByTitle();
+	if (!skipSort) {
+		this.sortByTitle();
+	}
+	rebuildHTML();
 }

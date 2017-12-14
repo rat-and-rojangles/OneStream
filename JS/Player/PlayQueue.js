@@ -9,7 +9,9 @@ var PlayQueue = function () {
 	}
 
 	this.getAllSongs = function () {
-		return songs.slice();
+		var a = songs.slice();
+		a.reverse();
+		return a;
 	}
 
 	this.addToEnd = function (newSong) {
