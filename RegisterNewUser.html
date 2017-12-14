@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>OneStream New User</title>
     <script type = "text/javascript" src = "jquery-3.2.1.js"></script>
+    <link rel="stylesheet" href="register.css">
+    
+    <title>Register for OneStream</title>
 </head>
 <body>
 
-<form>
-    User:
+<div class="card jumbotron mx-auto vertical-padding">
+<form class="card_form" action="login.html">
+    <label>User:</label>
     <input id = "user_input" type = 'text'>
-    Password:
+    <label>Password:</label>
     <input id = "pass_input" type = 'text'>
-    Verify Password:
+    <label>Verify Password:</label>
     <input id = "pass_verify_input" type = 'text'>
-    Email:
+    <label>Email:</label>
     <input id = "email_input" type = 'text'>
-    <button id = "submit"> Register for OneStream </button>
+    <button class="btn btn-default" id = "submit"> Register for OneStream </button>
 </form>
-
+</div>
 </body>
 </html>
 

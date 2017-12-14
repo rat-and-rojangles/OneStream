@@ -30,6 +30,33 @@
 .top-buffer {
   margin-top:20px;
 }
-#nav-pane, #play-place {
-  height: 80%;
+.player-active {
+	background-color: #bf00ff;
+	color: #fff;
+}
+html, body {
+  height: 100%;
+}
+#screen2 {
+  height: 100%;
+  width: 100%;
+}
+#nav-row {
+  padding: 0;
+  background-color: black;
+  height: 88%;
+}
+#nav-pane {
+  border-right: 4px solid purple;
+}
+#nav-buttons {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 40%;
+  font-family: "Lucida Sans Unicode";
+  font-size: 380%;
+  color: white;
+}
+.hover:hover {
+  color: purple;
 }

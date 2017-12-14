@@ -3,19 +3,28 @@ var Library = function () {
 	var songs = [];
 
 	var populate = function () {
-		// setup the ajax request
 		if (false) {
 			$.ajax({
 				type: "GET",
 				url: "DisplaySongs.php",
-				data: { user: "SomeUser" },
+				data: { user: "1" },
 				dataType: 'JSON',
 				success: function (result) {
-					$(document.getElementById("song_area")).append('<div> Successfully Returned </div>');
-					console.log(result);
-
+					// result is an array of objects in the form:
+					{
+						Album: string;
+						Artist: string;
+						End_time: string;
+						Genre: string;
+						ID: string;
+						Start_time: string;
+						Title: string;
+						URL: string;
+						User_ID: string;
+					}
+					//var Song = function (url, title, artist, album, tags, start, end) {
 					for (var i = 0; i < result.length; i++) {
-						songs.push(result);
+						songs.push(new Song(result.URL, result.Title, result.Artist, result.Album, [], parseFloat(result.Start_time), parseFloat(result.End_time)));
 					}
 					player.initializeIfReady();
 				},
@@ -25,18 +34,19 @@ var Library = function () {
 				}
 			});
 		}
-		songs.push(new Song('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop'));
-		songs.push(new Song('https://soundcloud.com/tsundere-alley/darling?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Darling', 'Tsundere Alley'));
-		songs.push(new Song('https://soundcloud.com/ashmusiczone/sonic-3-knuckles-desert-palace-ashzone-remix', 'Desert Palace (AshZone Remix)', 'AshZone'));
-		songs.push(new Song('https://www.youtube.com/watch?v=hcqoZZa3wVY&index=7&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Thank You', 'Sir J.'));
-		songs.push(new Song('https://www.youtube.com/watch?v=nd-4DFm8hEA&index=24&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Rust (Beta)', 'El Huervo'));
-		songs.push(new Song('https://www.youtube.com/watch?v=R2zXxQHBpd8', 'Will He', 'Joji'));
-		songs.push(new Song('https://soundcloud.com/chloeburbank/i-dont-wanna-waste-my-time', 'i dont wanna waste my time', 'Joji'));
-		player.initializeIfReady();
+		else {
+			songs.push(new Song('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop'));
+			songs.push(new Song('https://soundcloud.com/tsundere-alley/darling?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Darling', 'Tsundere Alley'));
+			songs.push(new Song('https://soundcloud.com/ashmusiczone/sonic-3-knuckles-desert-palace-ashzone-remix', 'Desert Palace (AshZone Remix)', 'AshZone'));
+			songs.push(new Song('https://www.youtube.com/watch?v=hcqoZZa3wVY&index=7&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Thank You', 'Sir J.'));
+			songs.push(new Song('https://www.youtube.com/watch?v=nd-4DFm8hEA&index=24&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Rust (Beta)', 'El Huervo'));
+			songs.push(new Song('https://www.youtube.com/watch?v=R2zXxQHBpd8', 'Will He', 'Joji'));
+			songs.push(new Song('https://soundcloud.com/chloeburbank/i-dont-wanna-waste-my-time', 'i dont wanna waste my time', 'Joji'));
+			player.initializeIfReady();
+		}
 	}
 	populate();
 
-	// should first check the link to see if it's valid.
 	this.addToLibrary = function (link) {
 		NOTIMPLEMENTED();
 	}
@@ -82,7 +92,6 @@ var arrayIntersectIgnoreCase = function (arr1, arr2) {
 	return false;
 }
 
-// does not use boundaries
 var Song = function (url, title, artist, album, tags, start, end) {
 	this.url = url;
 	this.title = title;
