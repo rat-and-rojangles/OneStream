@@ -36,8 +36,6 @@ var Song = function (url, title, artist, album, id, user) {
 				console.log(result);
 			}
 		});
-
-
 	}
 
 	this.updateInDB = function () {

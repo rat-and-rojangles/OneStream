@@ -92,8 +92,15 @@ var Library = function () {
 		songs.push(song);
 	}
 	this.removeFromLibrary = function (song) {
-		song.removeFromDB();
+		// for (var x = 0; x < songs.length; x++) {
+		// 	if(songs[x].url == song.url){
+		// 		var index = x;
+		// 		x = 9999;
+		// 	}
+		// }
 		songs.splice(songs.indexOf(song), 1);
+		showLibrary();
+		song.removeFromDB();
 	}
 
 	this.getSongs = function () {
@@ -131,6 +138,8 @@ var Library = function () {
 	}
 
 	this.rebuild = function (userID) {
+		songs = [];
+		playlists = [];
 		populate(userID);
 	}
 }
