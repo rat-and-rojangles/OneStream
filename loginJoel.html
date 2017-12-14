@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<script src="login.js"></script>
+	<link rel="stylesheet" href="login.css">
+	<link rel="stylesheet" href="player.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://w.soundcloud.com/player/api.js"></script>
+	<script src="https://rawgit.com/ratfr0/RatWorks/master/RatWorks.js"></script>
+	<script src="JS/Player/SampleComponents.js"></script>
+	<script src="JS/Utility.js"></script>
+	<script src="JS/Site/SongSelection.js"></script>
+	<script src="JS/Site/SiteFunctions.js"></script>
+	<script src="JS/Player/SCPlayer.js"></script>
+	<script src="JS/Player/YTPlayer.js"></script>
+	<script src="JS/Player/Player.js"></script>
+	<script src="JS/Player/PlayQueue.js"></script>
+	<script src="JS/Player/PlayControls.js"></script>
+	<script src="JS/Player/Library.js"></script>
+	<script src="JS/Driver.js"></script>
+
+	<script src="paneFunctionality.js"></script>
+	<title>OneStream</title>
+
+</head>
+
+<body>
+	<script>document.body.className += ' fade-out';</script>
+	<img id="banner" src="images/onestream.png" alt="banner" />
+
+
+	<div style="display: auto;" id="screen-1">
+		<div class="card jumbotron mx-auto vertical-padding">
+			<div class="card-block">
+				<p class="card-text">
+					<h1 class="centered-titles">Welcome to OneStream!</h1>
+					<br>
+
+					<form class="form-horizontal" id="login-form">
+						<div class="form-group">
+							<label class="control-label col-sm-4" for="un">Email:</label>
+							<div class="col-sm-10">
+								<input type="email" class="form-control" id="un" placeholder="Enter email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-4" for="pwd">Password:</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control" id="pwd" placeholder="Enter password">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" id="submit" class="btn btn-default">Submit</button>
+							</div>
+						</div>
+					</form>
+					<a href="RegisterNewUser.html">Register new user</a>
+
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid" id="screen2">
+		<div id="ytPlayer" class="widget"></div>
+		<div class="row" id="nav-row">
+			<div id="nav-pane" class="col-sm-1">
+				<ul id="nav-buttons">
+					<li onclick="search()" class="hover"><h6>Search</h6></li>
+					<script>
+					function search() {
+					  document.getElementById("song-list").style.display = "none";
+						document.getElementById("playlists").style.display = "none";
+						document.getElementById("search").style.display = "inline";
+						document.getElementById("library").style.display = "none";
+					}
+					</script>
+					<br />
+					<li onclick="library()" class="hover"><h6>Library</h6></li>
+					<script>
+					function library() {
+					  document.getElementById("song-list").style.display = "none";
+						document.getElementById("playlists").style.display = "none";
+						document.getElementById("search").style.display = "none";
+						document.getElementById("library").style.display = "inline";
+					}
+					</script>
+					<li onclick="playlist()" class="hover"><h6>Playlists</h6></li>
+					<script>
+					function playlist() {
+					  document.getElementById("song-list").style.display = "none";
+						document.getElementById("playlists").style.display = "inline";
+						document.getElementById("search").style.display = "none";
+						document.getElementById("library").style.display = "none";
+					}
+					</script>
+					<li onclick="queue()" class="hover"><h6>Queue</h6></li>
+					<script>
+					function queue() {
+					  document.getElementById("song-list").style.display = "inline";
+						document.getElementById("playlists").style.display = "none";
+						document.getElementById("search").style.display = "none";
+						document.getElementById("library").style.display = "none";
+					}
+					</script>
+				</ul>
+			</div>
+			<div id="play-place" class="col-sm-11"><br />
+				<div id="search">
+					<div class="song-view">
+						<form>
+							<input id="song-searcher" type="text" name="song-pick">
+						</form>
+					</div>
+				</div>
+				<div id="library">
+					<div class="song-view container-fluid">
+						<div class="row">
+							<div class="col-sm-8">
+								<h1>Library</h1>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn">Play</button>
+								<button class="btn">Shuffle</button>
+								<button class="btn">Add</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="playlists">
+					<div class="song-view container-fluid">
+						<div class="row">
+							<div class="col-sm-8">
+								<h1>Playlists</h1>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn">Add</button>
+								<button class="btn">Edit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="song-list">
+					<div class="song-view container-fluid">
+						<div class="row">
+							<div class="col-sm-8">
+								<h1>Title</h1>
+								<br />
+								<h3>Artist | Album</h3>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn addbtns">Add to Queue</button>
+								<button class="btn addbtns">Add to Library</button>
+								<button class="btn addbtns top-buffer">Add to blank</button>
+								<button class="btn addbtns top-buffer">blah blah blah</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="bottom-buttons">
+			<div class="row">
+				<input class="mx-auto slider" id="slider" type="range" min="0" max="1" value="0" step="0.00001">
+			</div>
+			<div class="row top-buffer">
+				<div id="controls2" class="mx-auto">
+					<button id="backward" class="btn"><<</button>
+					<button id="pausePlay" class="btn">||</button>
+					<button id="forward" class="btn">>></button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

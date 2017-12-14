@@ -71,7 +71,7 @@ html, body {
   border: 1px solid white;
   padding: 1%;
   border-radius: 25px;
-  background-color: #555555;
+  background-color: #ce17e4;
   color: white;
 }
 .addbtns {
@@ -80,4 +80,10 @@ html, body {
 }
 .widget{
 	display: none;
+}
+#playlists, #library, #search {
+  display: none;
+}
+#song-searcher {
+  width: 80%;
 }
