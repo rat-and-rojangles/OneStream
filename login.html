@@ -31,10 +31,6 @@
 	</head>
 
 	<body>
-		<script>document.body.className += ' fade-out';</script>
-		<img id="banner" src="images/onestream.png" alt="banner" />
-
-
 		<div style="display: auto;" id="screen-1">
 			<div class="card jumbotron mx-auto vertical-padding">
 				<div class="card-block">
@@ -69,66 +65,56 @@
 			</div>
 		</div>
 
-<<<<<<< HEAD
-  <div class="container-fluid" id="screen2">
-    <div id="ytPlayer" class="widget"></div>
-    <div class="row" id="nav-row">
-      <div id="nav-pane" class="col-sm-1">
-        <ul id="nav-buttons">
-          <li><hr></li>
-          <li class="hover"><h6>Search</h6></li>
-          <li><hr></li>
-          <li class="hover"><h6>Library</h6></li>
-          <li class="hover"><h6>Playlists</h6></li>
-          <li class="hover"><h6>Queue</h6></li>
-        </ul>
-      </div>
-      <div id="play-place" class="col-sm-11"><br />
-        <div id="song-list">
-        <div class="song-view container-fluid">
-          <div class="row">
-            <div class="col-sm-8">
-              <h1>Title</h1>
-              <br />
-              <h3>Artist | Album</h3>
-            </div>
-            <div class="col-sm-4">
-              <button class="btn addbtns">Add to Queue</button>
-              <button class="btn addbtns">Add to Library</button>
-              <button class="btn addbtns top-buffer">Add to blank</button>
-              <button class="btn addbtns top-buffer">blah blah blah</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-=======
-
-
 		<div class="container-fluid" id="screen2">
 			<div id="ytPlayer" class="widget"></div>
 			<div class="row" id="nav-row">
 				<div id="nav-pane" class="col-sm-1">
 					<ul id="nav-buttons">
-						<li>
-							<hr>
-						</li>
-						<li class="hover" id="search-choice">
+						<li onclick="search()" class="hover">
 							<h6>Search</h6>
 						</li>
-						<li>
-							<hr>
-						</li>
-						<li class="hover" id="library-choice">
+						<script>
+							function search() {
+								document.getElementById("song-list").style.display = "none";
+								document.getElementById("playlists").style.display = "none";
+								document.getElementById("search").style.display = "inline";
+								document.getElementById("library").style.display = "none";
+							}
+						</script>
+						<br />
+						<li onclick="library()" class="hover">
 							<h6>Library</h6>
 						</li>
-						<li class="hover" id="playlists-choice">
+						<script>
+							function library() {
+								document.getElementById("song-list").style.display = "none";
+								document.getElementById("playlists").style.display = "none";
+								document.getElementById("search").style.display = "none";
+								document.getElementById("library").style.display = "inline";
+							}
+						</script>
+						<li onclick="playlist()" class="hover">
 							<h6>Playlists</h6>
 						</li>
-						<li class="hover" id="queue-choice">
+						<script>
+							function playlist() {
+								document.getElementById("song-list").style.display = "none";
+								document.getElementById("playlists").style.display = "inline";
+								document.getElementById("search").style.display = "none";
+								document.getElementById("library").style.display = "none";
+							}
+						</script>
+						<li onclick="queue()" class="hover">
 							<h6>Queue</h6>
 						</li>
+						<script>
+							function queue() {
+								document.getElementById("song-list").style.display = "inline";
+								document.getElementById("playlists").style.display = "none";
+								document.getElementById("search").style.display = "none";
+								document.getElementById("library").style.display = "none";
+							}
+						</script>
 					</ul>
 				</div>
 				<div id="play-place" class="col-sm-11">
@@ -136,24 +122,8 @@
 					<div id="song-list">
 
 					</div>
-					<!-- <div class="song-view container-fluid">
-						<div class="row">
-							<div class="col-sm-8">
-								<h1>Title</h1>
-								<br />
-								<h3>Artist | Album</h3>
-							</div>
-							<div class="col-sm-4">
-								<button class="btn addbtns">Add to Queue</button>
-								<button class="btn addbtns">Add to Library</button>
-								<button class="btn addbtns top-buffer">Add to blank</button>
-								<button class="btn addbtns top-buffer">blah blah blah</button>
-							</div>
-						</div>
-					</div> -->
 				</div>
 			</div>
->>>>>>> c8c659dc5bfb53528945595405e998b8b432aadc
 
 			<div id="bottom-buttons">
 				<div class="row">
