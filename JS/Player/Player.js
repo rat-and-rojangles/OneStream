@@ -103,7 +103,13 @@ var Player = function () {
 		}
 	}
 
-	this.getQueuedSongs = function(){
+	this.debugQueueRandomSong = function () {
+		if (ready) {
+			queue.addToEnd(library.getSongs().randomElement());
+		}
+	}
+
+	this.getQueuedSongs = function () {
 		if (ready) {
 			return queue.getAllSongs();
 		}
