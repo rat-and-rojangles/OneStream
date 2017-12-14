@@ -2,7 +2,7 @@ var player;
 var controls;
 var library;	// should construct when the user logs in.
 var songSelection = new SongSelection();
-$(document).ready(function () {
+function driver (userid) {
 	controls = new PlayControls($('#pausePlay'), $('#forward'), $('#backward'), $('#slider'));
 	player = new Player();
 	player.registerCallback(Player.events.READY, function () {
@@ -10,7 +10,7 @@ $(document).ready(function () {
 		controls.setEnabled(true)
 	});
 
-	library = new Library("1");
+	library = new Library(userid);
 
 	// TODO
 	// set the links on the side to do things
@@ -27,4 +27,4 @@ $(document).ready(function () {
 	$('#queue-sidebar').on('click', function () {
 		showQueue();
 	});
-});
+}
