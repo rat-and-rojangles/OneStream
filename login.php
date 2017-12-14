@@ -1,42 +1,35 @@
 <?php
 
-$name = 'mckellydb';
-$user = 'mckelly';
-$pass = 'password';
-$host = 'classroom.cs.unc.edu';
-$correct = 0;
+// setup the database connect
+$dbname = 'mckellydb';
+$dbuser = 'mckelly';
+$dbpass = 'password';
+$dbhost = 'classroom.cs.unc.edu';
 
-//$login = $_POST['login'];
-//$password = $_POST['pass'];
-//$login = "user";
-//$password = "pass";
+// create variables from AJAX 'data' parameter
 
-// Begin connection
-/*$connect = mysqli_connect($host, $user, $pass)
-or die("Unable to Connect to '$host'");
+$email = $_GET['email'];
+$pass = $_GET['pass'];
 
+// connect to server
+$connect = mysqli_connect($dbhost, $dbuser, $dbpass)
+or die("Unable to Connect to '$dbhost'");
 
-mysqli_select_db($connect, 'mckellydb');
+// select db on server
+mysqli_select_db($connect, 'mckellydb')
+or die("Could not open the db '$dbname'");
 
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
+    $sql = "SELECT `ID` FROM `User` WHERE Email='$email' AND Password='$pass' LIMIT 1";
+    $result = mysqli_query($connect, $sql);
 
-// create string for sql query
-//$pass_test = "SELECT Password FROM User u WHERE u.Login='$login' limit 1";
-$pass_res = mysqli_query($connect, "SELECT Password FROM User u WHERE u.Login='".$login."' limit 1");
-$pass_temp = mysqli_fetch_object($pass_res);
-//var_dump($pass_temp);
+    while($row = mysqli_fetch_assoc($result))
+        $test[] = $row;
 
-$pass_val = $pass_temp->Password;
+    print json_encode($test);
 
+}
 
-
-if($pass_val == $password){$correct = 1;}
-
-//$data = {password: $pass_val, correct: $correct};*/
-
-
-
-
-
-
+mysqli_close($connect);
 ?>
