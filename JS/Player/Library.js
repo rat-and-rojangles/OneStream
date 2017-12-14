@@ -11,17 +11,6 @@ var Library = function (userID) {
 			dataType: 'JSON',
 			success: function (result) {
 				// result is an array of objects in the form:
-				{
-					Album: string;
-					Artist: string;
-					End_time: string;
-					Genre: string;
-					ID: string;
-					Start_time: string;
-					Title: string;
-					URL: string;
-					User_ID: string;
-				};
 				//var Song = function (url, title, artist, album, start, end, id, user) {
 				let playlistsAssoc = {};
 				let songsAssoc = {};
