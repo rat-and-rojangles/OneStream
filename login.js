@@ -25,7 +25,8 @@ $(document).ready(function() {
             data: data,
             dataType: 'JSON',
             success: function (result) {
-                console.log(result);
+                $("#screen-1").remove();
+                var user_id = result[0].ID;
             },
             error: function (result) {
                 console.log(result);

@@ -1,4 +1,5 @@
 .slider {
+    margin-top: 1%;
     -webkit-appearance: none;
     width: 90%;
     height: 15px;
@@ -13,19 +14,17 @@
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    border-radius: 75%;
+    background: black;
 }
 
 .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    border-radius: 75%;
+    background: black;
 }
 .top-buffer {
   margin-top:20px;
@@ -37,6 +36,11 @@
 html, body {
   height: 100%;
 }
+#bottom-buttons {
+  height: 12%;
+  width: 100%;
+  background-color: #333333;
+}
 #screen2 {
   height: 100%;
   width: 100%;
@@ -47,16 +51,33 @@ html, body {
   height: 88%;
 }
 #nav-pane {
-  border-right: 4px solid purple;
+  background-color: #222222;
 }
 #nav-buttons {
   list-style-type: none;
   padding: 0;
   margin-top: 40%;
-  font-family: "Lucida Sans Unicode";
-  font-size: 380%;
+  margin-left: 8%;
+}
+.hover {
   color: white;
+  transition: color .5s;
 }
 .hover:hover {
-  color: purple;
+  color: #f1cbff;
+  cursor: pointer;
+}
+.song-view {
+  border: 1px solid white;
+  padding: 1%;
+  border-radius: 25px;
+  background-color: #555555;
+  color: white;
+}
+.addbtns {
+  height: 40%;
+  width: 40%;
+}
+.widget{
+	display: none;
 }

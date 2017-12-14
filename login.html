@@ -9,8 +9,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   <script src="login.js"></script>
   <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="player.css">
 
-  <title>OneStream Login</title>
+  <script src="Player/SampleComponents.js"></script>
+	<script src="Utility.js"></script>
+	<script src="Player/SampleSongs.js"></script>
+	<script src="Player/SCPlayer.js"></script>
+	<script src="Player/YTPlayer.js"></script>
+	<script src="Player/PlayQueue.js"></script>
+	<script src="Player/Player.js"></script>
+  <title>OneStream</title>
 
 </head>
 <body>
@@ -49,6 +57,53 @@
       </div>
     </div>
   </div>
+
+
+  <div class="container-fluid" id="screen2">
+		<div id="ytPlayer" class="widget"></div>
+		<div class="row" id="nav-row">
+			<div id="nav-pane" class="col-sm-1">
+				<ul id="nav-buttons">
+					<li><hr></li>
+					<li class="hover"><h6>Search</h6></li>
+					<li><hr></li>
+					<li class="hover"><h6>Library</h6></li>
+					<li class="hover"><h6>Playlists</h6></li>
+					<li class="hover"><h6>Queue</h6></li>
+				</ul>
+			</div>
+			<div id="play-place" class="col-sm-11"><br />
+				<div class="song-view container-fluid">
+					<div class="row">
+						<div class="col-sm-8">
+							<h1>Title</h1>
+							<br />
+							<h3>Artist | Album</h3>
+						</div>
+						<div class="col-sm-4">
+							<button class="btn addbtns">Add to Queue</button>
+							<button class="btn addbtns">Add to Library</button>
+							<button class="btn addbtns top-buffer">Add to blank</button>
+							<button class="btn addbtns top-buffer">blah blah blah</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="bottom-buttons">
+			<div class="row">
+				<input class="mx-auto slider" id="slider myRange" type="range" min="0" max="1" value="0" step="0.00001">
+			</div>
+			<div class="row top-buffer">
+				<div id="controls2" class="mx-auto">
+					<button id="backward" class="btn"><<</button>
+					<button id="pausePlay" class="btn">||</button>
+					<button id="forward" class="btn">>></button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 
