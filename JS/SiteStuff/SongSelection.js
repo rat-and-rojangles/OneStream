@@ -1,8 +1,8 @@
 // jqParent is a child of the open box in the html
 // all of the songs will go in here
 
-var SongSelection = function (jqParent) {
-	var songs = [];
+var SongSelection = function (songs_) {
+	var songs = songs_.slice();
 
 	this.sortByTitle = function () {
 		sortTwoLayer("title", "artist");
@@ -16,6 +16,8 @@ var SongSelection = function (jqParent) {
 	this.sortByGenre = function () {
 		sortTwoLayer("genre", "title");
 	}
+
+	sortByTitle();
 
 	var sortTwoLayer = function (parameter1, parameter2) {
 		songs.sort(function (a, b) {
@@ -44,10 +46,10 @@ var SongSelection = function (jqParent) {
 	}
 
 	this.rebuildHTML = function () {
+		var jqParent = $("#song-list");	// or whatever we call it
 		jqParent.html("");
 		for (var x = 0; x < songs.length; x++) {
-			// make a ratworks component for the song
-			// append it to jqParent
+			RatWorks.appendNewComponent('song-entry', songs[x], jqParent);
 		}
 	}
 }
