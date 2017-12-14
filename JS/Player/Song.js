@@ -1,4 +1,4 @@
-var Song = function (url, title, artist, album, start, end, id, user) {
+var Song = function (url, title, artist, album, id, user) {
 	this.url = url;
 	this.title = title;
 	this.artist = artist;
