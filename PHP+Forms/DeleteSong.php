@@ -24,17 +24,10 @@ mysqli_select_db($connect, 'mckellydb')
 or die("Could not open the db '$dbname'");
 
 // create string for sql query
-$sql = "DELETE FROM `Song` WHERE ID=$song_id";
+$sql = "DELETE FROM `Song` WHERE ID=$song_id; ";
+$sql.= "DELETE FROM `SongPlaylistJunction` WHERE Song_ID=$song_id; ";
 
-if (mysqli_query($connect, $sql)) {
-    echo "HTTP/1.0 200 Good Request";
-} else {
-    echo "HTTP/1.0 400 Bad Request";
-}
-
-$sql = "DELETE FROM `SongPlaylistJunction` WHERE ID=$song_id";
-
-if (mysqli_query($connect, $sql)) {
+if (mysqli_multi_query($connect, $sql)) {
     echo "HTTP/1.0 200 Good Request";
 } else {
     echo "HTTP/1.0 400 Bad Request";
