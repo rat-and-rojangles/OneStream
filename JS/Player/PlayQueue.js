@@ -1,11 +1,15 @@
 var PlayQueue = function () {
 	var songs = [];
 	var currentIndex = -1;
-	this.getSong = function (index) {	// zero is the first to be popped
+	this.getSong = function (index) {
 		return songs[index];
 	}
 	this.getLength = function () {
 		return songs.length;
+	}
+
+	this.getAllSongs = function () {
+		return songs.slice();
 	}
 
 	this.addToEnd = function (newSong) {

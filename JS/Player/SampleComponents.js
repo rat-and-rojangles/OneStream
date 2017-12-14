@@ -5,4 +5,5 @@ var generateSongEntry = function (data) {
 	html += '</ul></div>';
 	return html;
 }
+
 RatWorks.registerComponent('song-entry', generateSongEntry);

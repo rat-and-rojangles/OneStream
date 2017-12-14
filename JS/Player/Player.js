@@ -1,4 +1,3 @@
-
 var Player = function () {
 	var scPlayer = new SCPlayer();
 	var ytPlayer = new YTPlayer();  // not yet defined
@@ -92,9 +91,21 @@ var Player = function () {
 		return activePlayer.getRatio();
 	}
 
+	this.queueSongNext = function (songJSON) {
+		if (ready) {
+			queue.addNext(songJSON);
+		}
+	}
+
 	this.queueSongEnd = function (songJSON) {
 		if (ready) {
 			queue.addToEnd(songJSON);
+		}
+	}
+
+	this.getQueuedSongs = function(){
+		if (ready) {
+			return queue.getAllSongs();
 		}
 	}
 
