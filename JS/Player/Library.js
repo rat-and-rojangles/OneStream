@@ -1,9 +1,9 @@
 // constructing a library populates it
-var Library = function (userID) {
+var Library = function () {
 	var songs = [];
 	var playlists = [];
 
-	var populate = function () {
+	var populate = function (userID) {
 		$.ajax({
 			type: "GET",
 			url: "DisplaySongs.php",
@@ -129,5 +129,9 @@ var Library = function (userID) {
 			});
 		}
 		return filteredSongs;
+	}
+
+	this.rebuild = function (userID) {
+		populate(userID);
 	}
 }

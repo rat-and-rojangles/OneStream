@@ -1,4 +1,17 @@
+var currentPage = -1;
+var PAGES = {};
+PAGES.Search = 0;
+PAGES.AddSong = 1;
+PAGES.Artist = 2;
+PAGES.Album = 3;
+PAGES.Library = 4;
+PAGES.Playlists = 5;
+PAGES.SpecificPlaylist = 6;
+PAGES.Queue = 7;
+
+
 var showSearch = function () {
+	currentPage = PAGES.Search;
 	$("#main-header").html(`<div>
 	<div class="song-view">
 			<input id="song-searcher" type="text">
@@ -11,23 +24,79 @@ var showSearch = function () {
 	});
 }
 
+var showAddSong = function () {
+	currentPage = PAGES.AddSong;
+	$("#main-header").html(
+		`<h1 class="white_header">Add New Song</h1>`
+	)
+	$("#song-list").html(
+		`<form id="addSongForm" class="jumbotron">
+		    Title:
+		    <input id = "title_input" type = 'text'><br />
+		    Artist:
+		    <input id = "artist_input" type = 'text'><br />
+		    Album:
+		    <input id = "album_input" type = 'text'><br />
+		    Genre:
+		    <input id = "genre_input" type = 'text'><br />
+		    URL:
+		    <input id = "url_input" type = 'text'><br />
+		    <button id = "submit-song"> Add Song </button>
+		</form>`
+	);
+	$("#addSongForm").on('submit', function (e) {
+		e.preventDefault();
+
+		var title = $("#title_input").val();
+		var artist = $("#artist_input").val();
+		var album = $("#album_input").val();
+		var genre = $("#genre_input").val();
+		var song_url = $("#url_input").val();
+		var user = user_id_global;
+
+		var url = "PHP/AddNewSong.php";
+
+		var data = { title: title, artist: artist, album: album, genre: genre, song_url: song_url, user: user };
+
+		// setup the ajax request
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: data,
+			dataType: 'JSON',
+			success: function (result) {
+				alert(success);
+				alert(result);
+			},
+			error: function (result) {
+				console.log(result);
+			}
+		});
+		buildLibrary(user);
+	});
+}
+
 var showAlbum = function (albumName) {
+	currentPage = PAGES.Album;
 	setHeader(albumName);
 	songSelection = new SongSelection(library.filterByParameter('album', albumName));
 }
 
 var showArtist = function (artistName) {
+	currentPage = PAGES.Artist;
 	setHeader(artistName);
 	songSelection = new SongSelection(library.filterByParameter('artist', artistName));
 }
 
 
 var showLibrary = function () {
-	setHeader('Library');
+	currentPage = PAGES.Library;
+	setHeader('Library', true);
 	songSelection = new SongSelection(library.getSongs());
 }
 
 var showPlaylists = function () {
+	currentPage = PAGES.Playlists;
 	setHeader('Playlists');
 	songSelection = new SongSelection();
 	var jqParent = $("#song-list");
@@ -40,11 +109,13 @@ var showPlaylists = function () {
 }
 
 var showSpecificPlaylist = function (playlist) {
+	currentPage = PAGES.SpecificPlaylist;
 	setHeader(playlist.name);
 	songSelection = new SongSelection(playlist.getSongs());
 }
 
 var showQueue = function () {
+	currentPage = PAGES.Queue;
 	setHeader('Queue');
 	songSelection = new SongSelection(player.getQueuedSongs(), true);
 	$('.queue-next-button').remove();
@@ -57,10 +128,10 @@ var showAddSongPrompt = function () {
 	NOTIMPLEMENTED();
 }
 
-var setHeader = function (name) {
+var setHeader = function (name, isLibrary) {
 	let jqHeader = $("#main-header");
 	jqHeader.html('');
-	RatWorks.appendNewComponent('play-header', { name: name }, jqHeader);
+	RatWorks.appendNewComponent('play-header', { name: name, isLibrary: isLibrary }, jqHeader);
 }
 
 var updateCurrentSong = function (song) {

@@ -18,7 +18,7 @@ $(document).ready(function () {
 				console.log(result);
 				$("#screen-1").remove();
 				var user_id = result[0].ID;
-
+				library.rebuild(user_id);
 			},
 			error: function (result) {
 				console.log(result);

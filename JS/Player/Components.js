@@ -22,8 +22,11 @@ var componentHeader = function (data) {
 	<div class="row">
 			<h1 class="header-text">`+ data.name + `
 			<button class="btn" onclick="songSelection.playAll()">Play All</button>
-			<button class="btn" onclick="songSelection.shuffle()">Shuffle</button></h1>
-	</div>
+			<button class="btn" onclick="songSelection.shuffle()">Shuffle</button>`;
+	if (data.isLibrary) {
+		html += '<button class="btn" onclick="showAddSong()">Add New Song</button>';
+	}
+	html += `</h1></div>
 </div > `
 	return html;
 }
@@ -32,7 +35,7 @@ var componentPlaylistEntry = function (data) {
 	var html = `<div class="song-view container-fluid">
 	<div class="row">
 		<div class="col-sm-4">
-			<h5 class="hover playlist-name">`+ data.name + `</h5><span>`+ data.size + `</span>
+			<h5 class="hover playlist-name">`+ data.name + `</h5><span>` + data.size + `</span>
 		</div >
 	<div class="col-sm-8 text-right">
 		<button class="btn">Something</button>

@@ -17,7 +17,27 @@ var Song = function (url, title, artist, album, id, user) {
 	}
 
 	this.removeFromDB = function () {
-		NOTIMPLEMENTED();
+		var song_id = id;
+		var url = "PHP/DeleteSong.php";
+
+		var data = { song_id: song_id };
+
+		// setup the ajax request
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: data,
+			dataType: 'JSON',
+			success: function (result) {
+				console.log(result);
+				buildLibrary(user_id_global);
+			},
+			error: function (result) {
+				console.log(result);
+			}
+		});
+
+
 	}
 
 	this.updateInDB = function () {
