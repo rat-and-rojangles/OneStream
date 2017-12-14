@@ -18,6 +18,7 @@ $(document).ready(function () {
 				console.log(result);
 				$("#screen-1").remove();
 				var user_id = result[0].ID;
+				driver(user_id);
 
 			},
 			error: function (result) {
