@@ -9,10 +9,6 @@ Array.prototype.randomElement = function () {
 	return this[Math.floor(Math.random() * this.length)];
 }
 
-Object.prototype.clone = function () {
-	return JSON.parse(JSON.stringify(this));
-}
-
 Math.lerp = function (a, b, t) {
 	return (1 - t) * a + t * b;
 }
