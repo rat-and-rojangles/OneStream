@@ -1,3 +1,5 @@
+var user_id_global = null;
+
 $(document).ready(function () {
 	$("#login-form").on('submit', function (e) {
 
@@ -17,8 +19,8 @@ $(document).ready(function () {
 			success: function (result) {
 				console.log(result);
 				$("#screen-1").remove();
-				var user_id = result[0].ID;
-				library.rebuild(user_id);
+				var user_id_global = result[0].ID;
+				library.rebuild(user_id_global);
 			},
 			error: function (result) {
 				console.log(result);

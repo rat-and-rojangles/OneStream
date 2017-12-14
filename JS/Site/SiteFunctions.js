@@ -57,6 +57,8 @@ var showAddSong = function () {
 		var url = "PHP/AddNewSong.php";
 
 		var data = { title: title, artist: artist, album: album, genre: genre, song_url: song_url, user: user };
+		var newSong = JSON.parse(JSON.stringify(data));
+		newSong.url = newSong.song_url;
 
 		// setup the ajax request
 		$.ajax({
@@ -72,7 +74,8 @@ var showAddSong = function () {
 				console.log(result);
 			}
 		});
-		buildLibrary(user);
+		library.addToLibrary(newSong);
+		showLibrary();
 	});
 }
 
@@ -117,6 +120,7 @@ var showSpecificPlaylist = function (playlist) {
 var showQueue = function () {
 	currentPage = PAGES.Queue;
 	setHeader('Queue');
+	$("#main-header").find('button').remove();
 	songSelection = new SongSelection(player.getQueuedSongs(), true);
 	$('.queue-next-button').remove();
 	$('.queue-end-button').remove();

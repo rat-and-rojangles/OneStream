@@ -90,7 +90,6 @@ var Library = function () {
 
 	this.addToLibrary = function (song) {
 		songs.push(song);
-		song.addToDB();
 	}
 	this.removeFromLibrary = function (song) {
 		song.removeFromDB();
