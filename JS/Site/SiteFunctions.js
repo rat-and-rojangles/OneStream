@@ -13,24 +13,24 @@ var showSearch = function () {
 
 var showAddSong = function() {
 	$("#main-header").html(
-		`<form>
+		`<h1 class="white_header">Add New Song</h1>`
+	)
+	$("#song-list").html(
+		`<form class="jumbotron">
 		    Title:
-		    <input id = "title_input" type = 'text'>
+		    <input id = "title_input" type = 'text'><br />
 		    Artist:
-		    <input id = "artist_input" type = 'text'>
+		    <input id = "artist_input" type = 'text'><br />
 		    Album:
-		    <input id = "album_input" type = 'text'>
+		    <input id = "album_input" type = 'text'><br />
 		    Genre:
-		    <input id = "genre_input" type = 'text'>
+		    <input id = "genre_input" type = 'text'><br />
 		    URL:
-		    <input id = "url_input" type = 'text'>
-
-		    User:
-		    <input id = "user_input" type = 'text'>
-
+		    <input id = "url_input" type = 'text'><br />
 		    <button id = "submit-song"> Add Song </button>
 		</form>`
 	);
+
 
 
 }
