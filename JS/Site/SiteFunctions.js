@@ -8,6 +8,19 @@ var showSearch = function () {
 	});
 }
 
+var showAlbum = function (albumName) {
+	// NOTIMPLEMENTED();
+	// TODO set up the header bar
+	songSelection = new SongSelection(library.filterByParameter('album', albumName));
+}
+
+var showArtist = function (artistName) {
+	// NOTIMPLEMENTED();
+	// TODO set up the header bar
+	songSelection = new SongSelection(library.filterByParameter('artist', artistName));
+}
+
+
 var showLibrary = function () {
 	NOTIMPLEMENTED();
 	// TODO set up the header bar
@@ -19,9 +32,8 @@ var showPlaylists = function () {
 }
 
 var showQueue = function () {
-	NOTIMPLEMENTED();
 	// TODO set up the header bar
-	songSelection = new SongSelection(player.getQueuedSongs());
+	songSelection = new SongSelection(player.getQueuedSongs(), true);
 }
 
 var showAddSongPrompt = function () {

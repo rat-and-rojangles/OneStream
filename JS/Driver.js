@@ -21,7 +21,7 @@ $(document).ready(function () {
 	$('#playlistsLink').on('click', function () {
 		showPlaylists();
 	});
-	$('#queueLink').on('click', function () {
+	$('#queue-choice').on('click', function () {
 		showQueue();
 	});
 

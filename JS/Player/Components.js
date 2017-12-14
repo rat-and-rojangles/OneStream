@@ -2,9 +2,9 @@ var generateSongEntry = function (song) {
 	var html = `<div class="song-view container-fluid">
 	<div class="row">
 		<div class="col-sm-6">
-			<h5>`+ 'title' + `</h5>
+			<h5>`+ song.title + `</h5>
 			<br>
-			<div> <a class="artist-link" href="">`+ song.artist + `</a> | <a class="album-link" href="">` + song.album + `</a></div>
+			<span> <span class="artist-link">` + song.artist + `</span> | <span class="album-link">` + song.album + `</span></span>
 		</div >
 	<div class="col-sm-6 text-right">
 		<button class="btn queue-next-button">Queue Next</button>
