@@ -86,6 +86,10 @@ var Library = function (userID) {
 
 		player.initializeIfReady();
 	}
+	
+	if (userID !== null) {
+		populate();
+	}
 	populate();
 
 	this.addToLibrary = function (song) {
