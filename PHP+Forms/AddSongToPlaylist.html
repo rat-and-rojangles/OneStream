@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OneStream Add Song To Playlist</title>
+    <script type = "text/javascript" src = "jquery-3.2.1.js"></script>
+</head>
+<body>
+
+<form>
+    Playlist ID :
+    <input id = "playlist_input" type = 'text'>
+    Song ID :
+    <input id = "song_input" type = 'text'>
+    User:
+    <input id = "user_input" type = 'text'>
+
+    <button id = "submit"> Add Song to Playlist </button>
+</form>
+
+</body>
+</html>
+
+<script type="text/javascript" src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#submit").click(function(){
+
+            var song_id = $("#song_input").val();
+            var playlist_id = $("#playlist_input").val();
+            var user_id = $("#user_input").val();
+
+            var url = "AddSongToPlaylist.php";
+
+            var data = {playlist_id: playlist_id, song_id: song_id, user_id: user_id};
+
+            // setup the ajax request
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: 'JSON',
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function(result){
+                    console.log(result);
+                }
+            });
+        });
+    });
+</script>

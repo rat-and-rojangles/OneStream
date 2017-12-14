@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OneStream Delete Song</title>
+    <script type = "text/javascript" src = "jquery-3.2.1.js"></script>
+</head>
+<body>
+
+<form>
+    Song ID to Delete :
+    <input id = "song_delete_input" type = 'text'>
+
+    <button id = "submit"> Delete Song </button>
+</form>
+
+</body>
+</html>
+
+<script type="text/javascript" src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#submit").click(function(){
+
+            var song_id = $("#song_delete_input").val();
+
+            var url = "DeleteSong.php";
+
+            var data = {song_id: song_id};
+
+            // setup the ajax request
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: 'JSON',
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function(result){
+                    console.log(result);
+                }
+            });
+        });
+    });
+</script>
