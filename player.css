@@ -78,3 +78,6 @@ html, body {
   height: 40%;
   width: 40%;
 }
+.widget{
+	display: none;
+}
