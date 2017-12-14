@@ -2,63 +2,65 @@
 
 <html lang="en">
 
-<head>
-	<title>Player demo</title>
-	<meta name="author" content="ratmaster Fischer">
-	<link rel="stylesheet" href="HideWidgets.css">
-	<link rel="stylesheet" href="player.css">
+	<head>
+		<title>Player demo</title>
+		<meta name="author" content="ratmaster Fischer">
+		<link rel="stylesheet" href="HideWidgets.css">
+		<link rel="stylesheet" href="player.css">
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://w.soundcloud.com/player/api.js"></script>
-	<script src="https://rawgit.com/ratfr0/RatWorks/master/RatWorks.js"></script>
-	<script src="Player/SampleComponents.js"></script>
-	<script src="Utility.js"></script>
-	<script src="Player/SampleSongs.js"></script>
-	<script src="Player/SCPlayer.js"></script>
-	<script src="Player/YTPlayer.js"></script>
-	<script src="Player/Player.js"></script>
-	<script src="Player/PlayQueue.js"></script>
-	<script src="Player/PlayControls.js"></script>
-	<script src="Player/Library.js"></script>
-	<script src="Driver.js"></script>
-</head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://w.soundcloud.com/player/api.js"></script>
+		<script src="https://rawgit.com/ratfr0/RatWorks/master/RatWorks.js"></script>
+		<script src="Player/SampleComponents.js"></script>
+		<script src="Utility.js"></script>
+		<script src="Player/SampleSongs.js"></script>
+		<script src="Player/SCPlayer.js"></script>
+		<script src="Player/YTPlayer.js"></script>
+		<script src="Player/Player.js"></script>
+		<script src="Player/PlayQueue.js"></script>
+		<script src="Player/PlayControls.js"></script>
+		<script src="Player/Library.js"></script>
+		<script src="Driver.js"></script>
+	</head>
 
-<body>
-	<div class="container-fluid" id="screen2">
-		<div id="ytPlayer" class="widget"></div>
-		<div class="row" id="nav-row">
-			<div id="nav-pane" class="col-sm-2">
-				<ul id="nav-buttons">
-					<li class="hover">Home</li>
-					<li class="hover">Library</li>
-					<li class="hover">Playlists</li>
-				</ul>
+	<body>
+		<div class="container-fluid" id="screen2">
+			<div id="ytPlayer" class="widget"></div>
+			<div class="row" id="nav-row">
+				<div id="nav-pane" class="col-sm-2">
+					<ul id="nav-buttons">
+						<li class="hover">Home</li>
+						<li class="hover">Library</li>
+						<li class="hover">Playlists</li>
+					</ul>
+				</div>
+				<div id="play-place" class="col-sm-10">
+					<br>
+					<input type="text" id="songLink" value="">
+					<button id="submitBox" class="btn">submit box</button>
+					<button id="loadSongButton" class="btn">queue random song from library</button>
+					<ul id="song-list">
+					</ul>
+				</div>
 			</div>
-			<div id="play-place" class="col-sm-10"><br />
-				<input type="text" id="songLink" value="">
-				<button id="submitBox" class="btn">submit box</button>
-				<button id="loadSongButton" class="btn">queue random song from library</button>
-				<ul id="song-list">
-				</ul>
-			</div>
-		</div>
 
-		<div class="row top-buffer">
+			<div class="row top-buffer">
 				<input class="mx-auto slider" id="slider" type="range" min="0" max="1" value="0" step="0.00001">
-		</div>
-		<div class="row top-buffer">
-			<div id="controls2" class="mx-auto">
-				<button id="backward" class="btn"><<</button>
-				<button id="pausePlay" class="btn">||</button>
-				<button id="forward" class="btn">>></button>
+			</div>
+			<div class="row top-buffer">
+				<div id="controls2" class="mx-auto">
+					<button id="backward" class="btn">
+						<<</button>
+							<button id="pausePlay" class="btn">||</button>
+							<button id="forward" class="btn">>></button>
+				</div>
 			</div>
 		</div>
-	</div>
-</body>
+	</body>
 
 </html>
