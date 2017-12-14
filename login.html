@@ -26,8 +26,9 @@
 		<script src="JS/Player/PlayControls.js"></script>
 		<script src="JS/Player/Library.js"></script>
 		<script src="JS/Driver.js"></script>
+		
 		<title>OneStream</title>
-
+		<link rel="icon" href="images/icon.png">
 	</head>
 
 	<body>
@@ -70,58 +71,27 @@
 			<div class="row" id="nav-row">
 				<div id="nav-pane" class="col-sm-1">
 					<ul id="nav-buttons">
-						<li onclick="search()" class="hover">
+						<li id="search-sidebar" class="hover">
 							<h6>Search</h6>
 						</li>
-						<script>
-							function search() {
-								document.getElementById("song-list").style.display = "none";
-								document.getElementById("playlists").style.display = "none";
-								document.getElementById("search").style.display = "inline";
-								document.getElementById("library").style.display = "none";
-							}
-						</script>
-						<br />
-						<li onclick="library()" class="hover">
+						<br>
+						<li id="library-sidebar" class="hover">
 							<h6>Library</h6>
 						</li>
-						<script>
-							function library() {
-								document.getElementById("song-list").style.display = "none";
-								document.getElementById("playlists").style.display = "none";
-								document.getElementById("search").style.display = "none";
-								document.getElementById("library").style.display = "inline";
-							}
-						</script>
-						<li onclick="playlist()" class="hover">
+						<li id="playlists-sidebar" class="hover">
 							<h6>Playlists</h6>
 						</li>
-						<script>
-							function playlist() {
-								document.getElementById("song-list").style.display = "none";
-								document.getElementById("playlists").style.display = "inline";
-								document.getElementById("search").style.display = "none";
-								document.getElementById("library").style.display = "none";
-							}
-						</script>
-						<li onclick="queue()" class="hover">
+						<li id="queue-sidebar" class="hover">
 							<h6>Queue</h6>
 						</li>
-						<script>
-							function queue() {
-								document.getElementById("song-list").style.display = "inline";
-								document.getElementById("playlists").style.display = "none";
-								document.getElementById("search").style.display = "none";
-								document.getElementById("library").style.display = "none";
-							}
-						</script>
 					</ul>
 				</div>
 				<div id="play-place" class="col-sm-11">
+					<div id="main-header"></div>
 					<br>
 					<div id="song-list">
-
 					</div>
+					<br>
 				</div>
 			</div>
 
@@ -130,6 +100,7 @@
 					<input class="mx-auto slider" id="slider" type="range" min="0" max="1" value="0" step="0.00001">
 				</div>
 				<div class="row top-buffer">
+					<div id="current-song"></div>
 					<div id="controls2" class="mx-auto">
 						<button id="backward" class="btn">
 							<<</button>

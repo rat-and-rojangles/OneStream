@@ -77,6 +77,7 @@ var Player = function () {
 	}
 
 	this.onSongEnd = function () {
+		updateCurrentSong();
 		this.skipForward();
 	}
 
@@ -138,6 +139,7 @@ var Player = function () {
 	this.onSuccessfullyLoadedSong = function () {
 		controls.setEnabled(true);
 		setInterval(controls.updateSliderWhilePlaying, 1);
+		updateCurrentSong(queue.getCurrentSong());
 	}
 
 	// events

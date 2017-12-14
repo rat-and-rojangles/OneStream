@@ -4,6 +4,9 @@ var PlayQueue = function () {
 	this.getSong = function (index) {
 		return songs[index];
 	}
+	this.getCurrentSong = function () {
+		return songs[currentIndex];
+	}
 	this.getLength = function () {
 		return songs.length;
 	}

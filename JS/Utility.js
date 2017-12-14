@@ -5,8 +5,24 @@ Number.prototype.isInteger = function () {
 Array.prototype.validIndex = function (index) {
 	return index.isInteger() && index >= 0 && index < this.length;
 }
+Array.prototype.randomIndex = function () {
+	return Math.floor(Math.random() * this.length);
+}
 Array.prototype.randomElement = function () {
-	return this[Math.floor(Math.random() * this.length)];
+	return this[this.randomIndex()];
+}
+
+Array.prototype.shuffle = function () {
+	var i = 0;
+	var j = 0;
+	var temp = null;
+
+	for (i = this.length - 1; i > 0; i -= 1) {
+		j = Math.floor(Math.random() * (i + 1));
+		temp = this[i];
+		this[i] = this[j];
+		this[j] = temp;
+	}
 }
 
 Math.lerp = function (a, b, t) {

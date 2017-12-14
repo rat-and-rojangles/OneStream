@@ -33,22 +33,27 @@ var Library = function (userID) {
 				player.initializeIfReady();
 			},
 			error: function (result) {
-				alert("error retrieving from DB\n" + JSON.stringify(result));
+				console.log("error retrieving from DB\n" + JSON.stringify(result));
 				console.log(result);
+				populateHardCoded();
 			}
 		});
 
+	}
+	var populateHardCoded = function () {
 		// hard coded values
-		//var Song = function (url, title, artist, album, id, user) {
-		// songs.push(new Song('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop', 'Moshi Moshi'));
-		// songs.push(new Song('https://soundcloud.com/tsundere-alley/darling?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Darling', 'Tsundere Alley', 'Welcome To '));
-		// songs.push(new Song('https://soundcloud.com/ashmusiczone/sonic-3-knuckles-desert-palace-ashzone-remix', 'Desert Palace (AshZone Remix)', 'AshZone', 'bla'));
-		// songs.push(new Song('https://www.youtube.com/watch?v=hcqoZZa3wVY&index=7&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Thank You', 'Sir J.', 'fank'));
-		// songs.push(new Song('https://www.youtube.com/watch?v=nd-4DFm8hEA&index=24&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Rust (Beta)', 'El Huervo', 'hlm'));
-		// songs.push(new Song('https://www.youtube.com/watch?v=R2zXxQHBpd8', 'Will He', 'Joji', 'intoungs'));
-		// songs.push(new Song('https://soundcloud.com/chloeburbank/i-dont-wanna-waste-my-time', 'i dont wanna waste my time', 'Joji', 'jojstep'));
-		// player.initializeIfReady();
-
+		// var Song = function (url, title, artist, album, id, user) {
+		songs.push(new Song('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop', 'Moshi Moshi'));
+		songs.push(new Song('https://soundcloud.com/ashmusiczone/sonic-3-knuckles-desert-palace-ashzone-remix', 'Desert Palace (AshZone Remix)', 'AshZone', 'Sonic 3 & Knuckles'));
+		songs.push(new Song('https://www.youtube.com/watch?v=hcqoZZa3wVY&index=7&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Thank You', 'Sir J.', 'Thank You'));
+		songs.push(new Song('https://www.youtube.com/watch?v=nd-4DFm8hEA&index=24&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Rust (Beta)', 'El Huervo', 'Hotline Miami 2: Wrong Number'));
+		songs.push(new Song('https://www.youtube.com/watch?v=R2zXxQHBpd8', 'Will He', 'Joji', 'In Tongues'));
+		songs.push(new Song('https://soundcloud.com/chloeburbank/i-dont-wanna-waste-my-time', 'i dont wanna waste my time', 'Joji', 'Joji'));
+		songs.push(new Song('https://soundcloud.com/tsundere-alley/stay-the-night?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Stay the Night', 'Tsundere Alley', 'Welcome To The Alley'));
+		songs.push(new Song('https://soundcloud.com/tsundere-alley/like-my-love?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Like My Love', 'Tsundere Alley', 'Welcome To The Alley'));
+		songs.push(new Song('https://soundcloud.com/tsundere-alley/darling?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Darling', 'Tsundere Alley', 'Welcome To The Alley'));
+		songs.push(new Song('https://soundcloud.com/tsundere-alley/super-lady', 'Super Lady', 'Tsundere Alley', 'Super Lady'));
+		player.initializeIfReady();
 	}
 	populate();
 
@@ -82,11 +87,13 @@ var Library = function (userID) {
 	// returns all results matching a query
 	this.search = function (query) {
 		var filteredSongs = [];
-		songs.forEach(function (song) {
-			if (song.title.includesIgnoreCase(query) || song.artist.includesIgnoreCase(query) || song.album.includesIgnoreCase(query) || song.genre.includesIgnoreCase(query)) {
-				filteredSongs.push(song);
-			}
-		});
+		if (query.length > 0) {
+			songs.forEach(function (song) {
+				if (song.title.includesIgnoreCase(query) || song.artist.includesIgnoreCase(query) || song.album.includesIgnoreCase(query) || song.genre.includesIgnoreCase(query)) {
+					filteredSongs.push(song);
+				}
+			});
+		}
 		return filteredSongs;
 	}
 }
