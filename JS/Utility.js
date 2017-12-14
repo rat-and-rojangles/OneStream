@@ -27,6 +27,13 @@ String.prototype.isAlphaNumeric = function () {
 	return true;
 }
 
+String.prototype.equalsIgnoreCase = function (other) {
+	return this.toLowerCase() == other.toLowerCase();
+}
+String.prototype.includesIgnoreCase = function (other) {
+	return this.toLowerCase().includes(other.toLowerCase());
+}
+
 var stripLinkForYouTubeID = function (youtubeLink) {
 	if (youtubeLink.includes('youtu.be/')) {
 		var video_id = (" " + youtubeLink).split('youtu.be/')[1];

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+User ID:
+<input id = "user_input" type = 'text'>
+<button id = "submit"> Show Me the Money </button>
+
+<div id = "song_area">
+
+</div>
+
+</body>
+</html>
+
+
+<script type="text/javascript" src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#submit").click(function(){
+
+            var url = "DisplaySongs.php";
+
+            var user = $("#user_input").val();
+            var data = {user: user};
+
+                // setup the ajax request
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: data,
+                    dataType: 'JSON',
+                    success: function(result) {
+                        $(document.getElementById("song_area")).append('<div> Successfully Returned </div>');
+                        console.log(result);
+
+                        for(var $i = 0; $i < result.length; $i++){
+                            $(document.getElementById("song_area")).append('<div> Song : ' + result[$i].Title + ' By : ' + result[$i].Artist + ' Album ' + result[$i].Album + ' </div>');
+                        }
+
+                        //$("#song_area").html(result);
+                    },
+                    error: function(result){
+                        $(document.getElementById("song_area")).append('<div> Error Boi </div>');
+                        console.log(result);
+                    }
+                });
+        });
+    });
+</script>

@@ -1,39 +1,35 @@
 $(function() {
     $('body').removeClass('fade-out');
 });
+
+
 setTimeout(function() {
   $('#banner').remove();
-  $('#screen-1').css({ 'display' : 'inline' })
-  $("#submit").click(function(){
-    var user = $("#un").val();
-    var pass = $("#pwd").val();
-    alert(pass);
-    alert(user);
+  $('#screen-1').css({ 'display' : 'inline' });
+}, 3000);
 
-    //var url = "https://wwwp.cs.unc.edu/Courses/comp426-f17/users/robro/final_proj_testing/login.php";
-    var url = "login.php";
-    var data = {login: user, pass: pass};
+$(document).ready(function() {
+    $("#login-form").on('submit', function (e) {
 
-    
-    $.ajax({
-            type: "POST",
+        e.preventDefault();
+
+        var email = $("#un").val();
+        var pass = $("#pwd").val();
+
+        var url = "login.php";
+        var data = {email: email, pass: pass};
+
+        $.ajax({
+            type: "GET",
             url: url,
             data: data,
-	    dataType: 'JSON',
-            cache: false,
-	    success: function(result) {alert("Success!");
-		console.log(result);
+            dataType: 'JSON',
+            success: function (result) {
+                console.log(result);
             },
-            error: function(result){alert("ERROR!");
-		console.log(result);
+            error: function (result) {
+                console.log(result);
             }
-                });
-		
-
-    
-
-
-  });
-
-
-}, 3000);
+        });
+    });
+});

@@ -46,8 +46,8 @@ var SCPlayer = function () {
 	this.seekTo = function (ratio) {
 		console.log('ratio ' + ratio);
 		console.log('currentDuration ' + currentDuration);
-		console.log('reqTime ' + Math.lerp(startTime, endTime, ratio) * 2);
-		scWidget.seekTo(Math.lerp(startTime, endTime, ratio) * 2);
+		console.log('reqTime ' + Math.lerp(startTime, endTime, ratio));
+		scWidget.seekTo(Math.lerp(startTime, endTime, ratio));
 	}
 
 	this.loadNewSong = function (songJSON) {
