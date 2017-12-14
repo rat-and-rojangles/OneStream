@@ -72,7 +72,7 @@ var showAddSong = function () {
 				console.log(result);
 			}
 		});
-		driver(user);
+		buildLibrary(user);
 
 	});
 }

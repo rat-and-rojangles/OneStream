@@ -30,7 +30,7 @@ var Song = function (url, title, artist, album, id, user) {
 			dataType: 'JSON',
 			success: function (result) {
 				console.log(result);
-				driver(user_id_global);
+				buildLibrary(user_id_global);
 			},
 			error: function (result) {
 				console.log(result);
