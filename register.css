@@ -20,3 +20,6 @@ body {
 html {
   background-color: black;
 }
+.control-label {
+  text-align: left;
+}
