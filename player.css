@@ -127,4 +127,12 @@ html, body {
 	right: 33%;
 	height: 10.5%;
 	line-height: 0.5em;
+	pointer-events: none;
+}
+
+.logo-image {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	height: 3em;
 }

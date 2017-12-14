@@ -10,28 +10,12 @@ var componentSongEntry = function (song) {
 		<button class="btn queue-next-button">Queue Next</button>
 		<button class="btn queue-end-button">Queue Last</button>
 		<button class="btn edit-button">Add to Playlist</button>
-		<button class="btn edit-button">EDIT</button>
+		<button class="btn remove-button">REMOVE</button>
 	</div>
 	</div>
 </div > `
 	return html;
 }
-
-// var componentHeader = function (data) {
-// 	var html = `<div class="container-fluid">
-// 	<div class="row">
-// 		<div class="col-sm-3">
-// 			<h1>`+ data.name + `</h1>
-// 			<br>
-// 		</div >
-// 	<div class="col-sm-9 text-right">
-// 		<button class="btn">Play All</button>
-// 		<button class="btn">Shuffle</button>
-// 	</div>
-// 	</div>
-// </div > `
-// 	return html;
-// }
 
 var componentHeader = function (data) {
 	var html = `<div class="container-fluid">
@@ -44,5 +28,22 @@ var componentHeader = function (data) {
 	return html;
 }
 
+var componentPlaylistEntry = function (data) {
+	var html = `<div class="song-view container-fluid">
+	<div class="row">
+		<div class="col-sm-4">
+			<h5 class="hover playlist-name">`+ data.name + `</h5><span>`+ data.size + `</span>
+		</div >
+	<div class="col-sm-8 text-right">
+		<button class="btn">Something</button>
+		<button class="btn">Something Else</button>
+		<button class="btn">REMOVE</button>
+	</div>
+	</div>
+</div > `
+	return html;
+}
+
 RatWorks.registerComponent('song-entry', componentSongEntry);
 RatWorks.registerComponent('play-header', componentHeader);
+RatWorks.registerComponent('playlist-entry', componentPlaylistEntry);

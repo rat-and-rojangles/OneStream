@@ -16,7 +16,6 @@ var SongSelection = function (songs_, skipSort) {
 	}
 
 	this.playAll = function () {
-		alert("plaal");
 		if (songs.length > 0) {
 			player.dumpQueue();
 			var songs2 = songs.slice();
@@ -28,7 +27,6 @@ var SongSelection = function (songs_, skipSort) {
 	}
 
 	this.shuffle = function () {
-		alert("shuff");
 		if (songs.length > 0) {
 			player.dumpQueue();
 			var songs2 = songs.slice();

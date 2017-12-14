@@ -30,7 +30,18 @@ var showLibrary = function () {
 var showPlaylists = function () {
 	setHeader('Playlists');
 	songSelection = new SongSelection();
-	NOTIMPLEMENTED();
+	var jqParent = $("#song-list");
+	library.getPlaylists().forEach(function (playlist) {
+		let newElement = RatWorks.appendNewComponent('playlist-entry', playlist.toRatData(), jqParent);
+		newElement.find('.playlist-name').on('click', function () {
+			showSpecificPlaylist(playlist);
+		});
+	});
+}
+
+var showSpecificPlaylist = function (playlist) {
+	setHeader(playlist.name);
+	songSelection = new SongSelection(playlist.getSongs());
 }
 
 var showQueue = function () {

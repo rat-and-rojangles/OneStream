@@ -10,7 +10,7 @@ $(document).ready(function () {
 		controls.setEnabled(true)
 	});
 
-	library = new Library(1);
+	library = new Library("1");
 
 	// TODO
 	// set the links on the side to do things

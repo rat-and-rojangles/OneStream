@@ -7,7 +7,7 @@ var Library = function (userID) {
 		$.ajax({
 			type: "GET",
 			url: "DisplaySongs.php",
-			data: { user: " " + userID },
+			data: { user: "" + userID },
 			dataType: 'JSON',
 			success: function (result) {
 				// result is an array of objects in the form:
@@ -43,16 +43,47 @@ var Library = function (userID) {
 	var populateHardCoded = function () {
 		// hard coded values
 		// var Song = function (url, title, artist, album, id, user) {
-		songs.push(new Song('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop', 'Moshi Moshi'));
+
+		let plAnime = new Playlist('Weeaboo Shit');
+		let plSad = new Playlist('Sadboys');
+		let lastSong = null;
+		playlists.push(plAnime);
+		playlists.push(plSad);
+		playlists.push(new Playlist('Totally Empty Playlist'));
+
+		lastSong = new Song('https://soundcloud.com/moeshop/moshi-moshi-superstar', 'Superstar feat. Hentai Dude', 'Moe Shop', 'Moshi Moshi');
+		plAnime.addSong(lastSong);
+		songs.push(lastSong);
+
 		songs.push(new Song('https://soundcloud.com/ashmusiczone/sonic-3-knuckles-desert-palace-ashzone-remix', 'Desert Palace (AshZone Remix)', 'AshZone', 'Sonic 3 & Knuckles'));
 		songs.push(new Song('https://www.youtube.com/watch?v=hcqoZZa3wVY&index=7&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Thank You', 'Sir J.', 'Thank You'));
-		songs.push(new Song('https://www.youtube.com/watch?v=nd-4DFm8hEA&index=24&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Rust (Beta)', 'El Huervo', 'Hotline Miami 2: Wrong Number'));
-		songs.push(new Song('https://www.youtube.com/watch?v=R2zXxQHBpd8', 'Will He', 'Joji', 'In Tongues'));
-		songs.push(new Song('https://soundcloud.com/chloeburbank/i-dont-wanna-waste-my-time', 'i dont wanna waste my time', 'Joji', 'Joji'));
-		songs.push(new Song('https://soundcloud.com/tsundere-alley/stay-the-night?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Stay the Night', 'Tsundere Alley', 'Welcome To The Alley'));
-		songs.push(new Song('https://soundcloud.com/tsundere-alley/like-my-love?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Like My Love', 'Tsundere Alley', 'Welcome To The Alley'));
-		songs.push(new Song('https://soundcloud.com/tsundere-alley/darling?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Darling', 'Tsundere Alley', 'Welcome To The Alley'));
-		songs.push(new Song('https://soundcloud.com/tsundere-alley/super-lady', 'Super Lady', 'Tsundere Alley', 'Super Lady'));
+
+		lastSong = new Song('https://www.youtube.com/watch?v=nd-4DFm8hEA&index=24&list=PL-WwL4yWuqkR8_vneC7jJwD1_P1YlujCn', 'Rust (Beta)', 'El Huervo', 'Hotline Miami 2: Wrong Number')
+		plSad.addSong(lastSong);
+		songs.push(lastSong);
+		lastSong = new Song('https://www.youtube.com/watch?v=R2zXxQHBpd8', 'Will He', 'Joji', 'In Tongues');
+		plSad.addSong(lastSong);
+		songs.push(lastSong);
+		lastSong = new Song('https://soundcloud.com/chloeburbank/i-dont-wanna-waste-my-time', 'i dont wanna waste my time', 'Joji', 'Joji');
+		plSad.addSong(lastSong);
+		songs.push(lastSong);
+
+		lastSong = new Song('https://soundcloud.com/tsundere-alley/stay-the-night?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Stay the Night', 'Tsundere Alley', 'Welcome To The Alley');
+		plAnime.addSong(lastSong);
+		songs.push(lastSong);
+		lastSong = new Song('https://soundcloud.com/tsundere-alley/like-my-love?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Like My Love', 'Tsundere Alley', 'Welcome To The Alley');
+		plAnime.addSong(lastSong);
+		songs.push(lastSong);
+		lastSong = new Song('https://soundcloud.com/tsundere-alley/darling?in=tsundere-alley/sets/welcome-to-the-alley-ep', 'Darling', 'Tsundere Alley', 'Welcome To The Alley');
+		plAnime.addSong(lastSong);
+		songs.push(lastSong);
+		lastSong = new Song('https://soundcloud.com/tsundere-alley/super-lady', 'Super Lady', 'Tsundere Alley', 'Super Lady');
+		plAnime.addSong(lastSong);
+		songs.push(lastSong);
+		lastSong = new Song('https://soundcloud.com/android52/float-islands', 'Float Islands', 'android52', 'Anime WAV Grooves Vol. 2');
+		plAnime.addSong(lastSong);
+		songs.push(lastSong);
+
 		player.initializeIfReady();
 	}
 	populate();
@@ -68,6 +99,9 @@ var Library = function (userID) {
 
 	this.getSongs = function () {
 		return songs.slice();
+	}
+	this.getPlaylists = function () {
+		return playlists.slice();
 	}
 
 	// parameter: artist, title, ...
