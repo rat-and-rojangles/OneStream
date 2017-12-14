@@ -40,7 +40,7 @@ var showAddSong = function() {
 			var song_url = $("#url_input").val();
 			var user = user_id_global;
 
-			var url = "JS/Site/AddNewSong.php";
+			var url = "PHP/AddNewSong.php";
 
 					var data = {title: title, artist: artist, album: album, genre: genre, song_url: song_url, user: user};
 
