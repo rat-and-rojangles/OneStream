@@ -20,23 +20,24 @@ var SongSelection = function (songs_) {
 		jqParent.html("");
 		for (var x = 0; x < songs.length; x++) {
 			var newSongElement = RatWorks.appendNewComponent('song-entry', songs[x], jqParent);
+			newSongElement.song = songs[x];
 			newSongElement.find('.artist-link').on('click', function () {
-				songSelection = new SongSelection(library.filterByParameter('artist', songs[x].artist));
+				songSelection = new SongSelection(library.filterByParameter('artist', newSongElement.song.artist));
 			});
 			newSongElement.find('.album-link').on('click', function () {
-				songSelection = new SongSelection(library.filterByParameter('album', songs[x].artist));
+				songSelection = new SongSelection(library.filterByParameter('album', newSongElement.song.album));
 			});
 			newSongElement.find('.queue-next-button').on('click', function () {
-				player.queueSongNext(songs[x]);
+				player.queueSongNext(newSongElement.song);
 			});
 			newSongElement.find('.queue-end-button').on('click', function () {
-				player.queueSongEnd(songs[x]);
+				player.queueSongEnd(newSongElement.song);
 			});
 			newSongElement.find('.edit-button').on('click', function () {
 				NOTIMPLEMENTED();
 			});
 			newSongElement.find('.remove-button').on('click', function () {
-				library.removeFromLibrary(songs[x]);
+				library.removeFromLibrary(newSongElement.song);
 				rebuildHTML();
 			});
 		}

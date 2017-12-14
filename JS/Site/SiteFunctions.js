@@ -19,7 +19,6 @@ var showPlaylists = function () {
 }
 
 var showQueue = function () {
-	NOTIMPLEMENTED();
 	// TODO set up the header bar
 	songSelection = new SongSelection(player.getQueuedSongs());
 }

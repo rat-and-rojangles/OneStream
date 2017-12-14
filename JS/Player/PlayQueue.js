@@ -18,7 +18,6 @@ var PlayQueue = function () {
 			currentIndex = 0;
 			player.loadNewSong(songs[currentIndex]);
 		}
-		rebuildHTML();
 	}
 	this.addNext = function (newSong) {
 		songs.splice(currentIndex + 1, 0, newSong);
@@ -26,14 +25,12 @@ var PlayQueue = function () {
 			currentIndex = 0;
 			player.loadNewSong(songs[currentIndex]);
 		}
-		rebuildHTML();
 	}
 
 	this.removeAll = function () {
 		player.stop();
 		songs = [];
 		currentIndex = -1;
-		rebuildHTML();
 	}
 
 	this.remove = function (index) {
@@ -56,7 +53,6 @@ var PlayQueue = function () {
 			currentIndex--;
 			player.loadNewSong(songs[currentIndex]);
 		}
-		rebuildHTML();
 	}
 	this.skipForward = function () {
 		if (currentIndex < songs.length - 1) {
@@ -66,19 +62,6 @@ var PlayQueue = function () {
 		else {
 			currentIndex = 0;
 			player.stop();
-		}
-		rebuildHTML();
-	}
-
-	var rebuildHTML = function () {
-		var songListJQ = $("#song-list");
-		songListJQ.html('');
-		for (var x = 0; x < songs.length; x++) {
-			var newJQComponent = RatWorks.appendNewComponent('song-entry', songs[x], $("#song-list"));
-			songListJQ.append(newJQComponent);
-			if (x == currentIndex) {
-				newJQComponent.addClass('player-active');
-			}
 		}
 	}
 }
