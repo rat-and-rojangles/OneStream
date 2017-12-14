@@ -11,6 +11,30 @@ var showSearch = function () {
 	});
 }
 
+var showAddSong = function() {
+	$("#main-header").html(
+		`<form>
+		    Title:
+		    <input id = "title_input" type = 'text'>
+		    Artist:
+		    <input id = "artist_input" type = 'text'>
+		    Album:
+		    <input id = "album_input" type = 'text'>
+		    Genre:
+		    <input id = "genre_input" type = 'text'>
+		    URL:
+		    <input id = "url_input" type = 'text'>
+
+		    User:
+		    <input id = "user_input" type = 'text'>
+
+		    <button id = "submit-song"> Add Song </button>
+		</form>`
+	);
+
+
+}
+
 var showAlbum = function (albumName) {
 	setHeader(albumName);
 	songSelection = new SongSelection(library.filterByParameter('album', albumName));
