@@ -16,7 +16,7 @@ var Library = function (userID) {
 				let songsAssoc = {};
 				for (var x = 0; x < result.length; x++) {
 					if (result[x].URL) {				// song
-						var newSong = new Song(result[x].URL, result[x].Title, result[x].Artist, result[x].Album, result[x].Start_time, result[x].End_time, result[x].ID, result[x].User_ID);
+						var newSong = new Song(result[x].URL, result[x].Title, result[x].Artist, result[x].Album, result[x].ID, result[x].User_ID);
 						songs.push(newSong);
 						songsAssoc[result[x].ID] = newSong;
 					}
@@ -95,6 +95,9 @@ var Library = function (userID) {
 	this.removeFromLibrary = function (song) {
 		song.removeFromDB();
 		songs.splice(songs.indexOf(song), 1);
+		if (currentPage == PAGES.Library) {
+			showLibrary();
+		}
 	}
 
 	this.getSongs = function () {

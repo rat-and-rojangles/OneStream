@@ -7,7 +7,12 @@ $dbpass = 'password';
 $dbhost = 'classroom.cs.unc.edu';
 
 // create variables from AJAX 'data' parameter
-$song_id = $_POST['song_id'];
+$title = $_POST['title'];
+$artist = $_POST['artist'];
+$album = $_POST['album'];
+$genre = $_POST['genre'];
+$song_url = $_POST['song_url'];
+$user_id = $_POST['user'];
 
 // connect to server
 $connect = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname)
@@ -15,23 +20,15 @@ or die("Unable to Connect to '$dbhost'");
 
 // troubleshoot if connect worked
 // NOTE: this only works by running the php file by itself and not through HTML
-if($connect){
-    echo "Connected to host<br>";
-}
+
 
 // select db on server
 mysqli_select_db($connect, 'mckellydb')
 or die("Could not open the db '$dbname'");
 
 // create string for sql query
-$sql = "DELETE FROM `Song` WHERE ID=$song_id; ";
-$sql.= "DELETE FROM `SongPlaylistJunction` WHERE Song_ID=$song_id; ";
-
-if (mysqli_multi_query($connect, $sql)) {
-    echo "HTTP/1.0 200 Good Request";
-} else {
-    echo "HTTP/1.0 400 Bad Request";
-}
+$sql = "INSERT INTO Song (Title, Artist, Album, Genre, URL, User_ID) VALUE ('$title', '$artist', '$album', '$genre', '$song_url', '$user_id')";
+mysqli_query($connect,$sql);
 
 mysqli_close($connect);
 ?>
