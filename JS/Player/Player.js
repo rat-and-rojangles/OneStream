@@ -27,7 +27,7 @@ var Player = function () {
 	//takes a JSON object (from the DB) and uses that to load up a song
 	this.loadNewSong = function (songJSON) {
 		if (ready) {
-			var songClone = songJSON.clone();
+			var songClone = JSON.parse(JSON.stringify(songJSON));
 
 			if (songJSON.url.includes("soundcloud.com")) {
 				songClone.url = songJSON.url;
