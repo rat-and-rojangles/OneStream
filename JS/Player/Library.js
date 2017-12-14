@@ -58,15 +58,15 @@ var Library = function () {
 		return songs.slice();
 	}
 
-	this.filtereredByTags = function (tags) {
-		var filteredSongs = [];
-		songs.forEach(function (song) {
-			if (arrayIntersectIgnoreCase(song.tags, tags)) {
-				filteredSongs.push(song);
-			}
-		});
-		return filteredSongs;
-	}
+	// this.filtereredByTags = function (tags) {
+	// 	var filteredSongs = [];
+	// 	songs.forEach(function (song) {
+	// 		if (arrayIntersectIgnoreCase(song.tags, tags)) {
+	// 			filteredSongs.push(song);
+	// 		}
+	// 	});
+	// 	return filteredSongs;
+	// }
 
 	this.filterByArtist = function (artist) {
 		var filteredSongs = [];
@@ -78,7 +78,21 @@ var Library = function () {
 		});
 		return filteredSongs;
 	}
-	//
+
+	// returns all results matching a query
+	this.search = function (query) {
+		var filteredSongs = [];
+		songs.forEach(function (song) {
+			if (song.title.includesIgnoreCase(query) || song.artist.includesIgnoreCase(query) || song.album.includesIgnoreCase(query) || song.genre.includesIgnoreCase(query)) {
+				filteredSongs.push(song);
+			}
+		});
+		return filteredSongs;
+	}
+}
+
+var equalsIgnoreCase = function (string1, string2) {
+	return string1.toLowerCase() == string1.toLowerCase();
 }
 
 var arrayIntersectIgnoreCase = function (arr1, arr2) {
