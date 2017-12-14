@@ -9,10 +9,14 @@
 
 }
 
-html {
+body {
   background-color: black;
 }
 
 .vertical-padding {
   top: 40px;
+}
+
+html {
+  background-color: black;
 }
