@@ -1,4 +1,17 @@
+var currentPage = -1;
+var PAGES = {};
+PAGES.Search = 0;
+PAGES.AddSong = 1;
+PAGES.Artist = 2;
+PAGES.Album = 3;
+PAGES.Library = 4;
+PAGES.Playlists = 5;
+PAGES.SpecificPlaylist = 6;
+PAGES.Queue = 7;
+
+
 var showSearch = function () {
+	currentPage = PAGES.Search;
 	$("#main-header").html(`<div>
 	<div class="song-view">
 			<input id="song-searcher" type="text">
@@ -12,6 +25,7 @@ var showSearch = function () {
 }
 
 var showAddSong = function() {
+	currentPage = PAGES.AddSong;
 	$("#main-header").html(
 		`<h1 class="white_header">Add New Song</h1>`
 	)
@@ -64,22 +78,26 @@ var showAddSong = function() {
 }
 
 var showAlbum = function (albumName) {
+	currentPage = PAGES.Album;
 	setHeader(albumName);
 	songSelection = new SongSelection(library.filterByParameter('album', albumName));
 }
 
 var showArtist = function (artistName) {
+	currentPage = PAGES.Artist;
 	setHeader(artistName);
 	songSelection = new SongSelection(library.filterByParameter('artist', artistName));
 }
 
 
 var showLibrary = function () {
+	currentPage = PAGES.Library;
 	setHeader('Library');
 	songSelection = new SongSelection(library.getSongs());
 }
 
 var showPlaylists = function () {
+	currentPage = PAGES.Playlists;
 	setHeader('Playlists');
 	songSelection = new SongSelection();
 	var jqParent = $("#song-list");
@@ -92,11 +110,13 @@ var showPlaylists = function () {
 }
 
 var showSpecificPlaylist = function (playlist) {
+	currentPage = PAGES.SpecificPlaylist;
 	setHeader(playlist.name);
 	songSelection = new SongSelection(playlist.getSongs());
 }
 
 var showQueue = function () {
+	currentPage = PAGES.Queue;
 	setHeader('Queue');
 	songSelection = new SongSelection(player.getQueuedSongs(), true);
 	$('.queue-next-button').remove();

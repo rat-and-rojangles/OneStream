@@ -95,6 +95,9 @@ var Library = function (userID) {
 	this.removeFromLibrary = function (song) {
 		song.removeFromDB();
 		songs.splice(songs.indexOf(song), 1);
+		if (currentPage == PAGES.Library) {
+			showLibrary();
+		}
 	}
 
 	this.getSongs = function () {
