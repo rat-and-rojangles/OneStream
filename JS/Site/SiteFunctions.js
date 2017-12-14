@@ -24,7 +24,7 @@ var showSearch = function () {
 	});
 }
 
-var showAddSong = function() {
+var showAddSong = function () {
 	currentPage = PAGES.AddSong;
 	$("#main-header").html(
 		`<h1 class="white_header">Add New Song</h1>`
@@ -44,35 +44,35 @@ var showAddSong = function() {
 		    <button id = "submit-song"> Add Song </button>
 		</form>`
 	);
-	$("#addSongForm").on('submit', function(e) {
-			e.preventDefault();
+	$("#addSongForm").on('submit', function (e) {
+		e.preventDefault();
 
-			var title = $("#title_input").val();
-			var artist = $("#artist_input").val();
-			var album = $("#album_input").val();
-			var genre = $("#genre_input").val();
-			var song_url = $("#url_input").val();
-			var user = user_id_global;
+		var title = $("#title_input").val();
+		var artist = $("#artist_input").val();
+		var album = $("#album_input").val();
+		var genre = $("#genre_input").val();
+		var song_url = $("#url_input").val();
+		var user = user_id_global;
 
-			var url = "PHP/AddNewSong.php";
+		var url = "PHP/AddNewSong.php";
 
-					var data = {title: title, artist: artist, album: album, genre: genre, song_url: song_url, user: user};
+		var data = { title: title, artist: artist, album: album, genre: genre, song_url: song_url, user: user };
 
-					// setup the ajax request
-					$.ajax({
-							type: "POST",
-							url: url,
-							data: data,
-							dataType: 'JSON',
-							success: function(result) {
-									alert(success);
-									alert(result);
-							},
-							error: function(result){
-									console.log(result);
-							}
-					});
-					driver(user);
+		// setup the ajax request
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: data,
+			dataType: 'JSON',
+			success: function (result) {
+				alert(success);
+				alert(result);
+			},
+			error: function (result) {
+				console.log(result);
+			}
+		});
+		driver(user);
 
 	});
 }
